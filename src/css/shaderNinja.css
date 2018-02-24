@@ -1,0 +1,70 @@
+@charset 'utf-8';
+
+/* VARIABLES */
+
+:root {
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    /* -- font-family: 'Montserrat'; */
+    --editor-font-family: 'Source Code Pro', monospace;
+    --ui-base-color: #2f302b;
+    --ui-component-color: #2e3033;
+    --ui-element-color: #3a3c40;
+    --ui-active-color: #171e22;
+    --ui-highlight-color: #B3E5FC;
+    --ui-component-text-color: #eefafa;
+    --ui-link-text-color: #e1eeee;
+    --ui-subtext-color: #c0c6c6;
+    --ui-border-color: #999ca0;
+    --modal-shadow: 0 0 0 5px rgba(0,0,0,0.2), 0 4px 8px 0 rgba(0,0,0,0.25);
+
+    /* Z-INDEX SCALE */
+    --z-editor: 100;
+    --z-shader-ghost: 199;
+    --z-shader: 200;
+    --z-divider: 250;
+    --z-menu: 300;
+    --z-helpers: 1000;
+}
+
+/* Native Codemirror */
+@import 'codemirror/lib/codemirror.css';
+@import 'codemirror/addon/dialog/dialog.css';
+@import 'codemirror/addon/fold/foldgutter.css';
+@import 'codemirror/addon/hint/show-hint.css';
+
+/* Themes */
+@import 'codemirror/theme/ambiance.css';
+@import 'codemirror/theme/base16-dark.css';
+@import 'codemirror/theme/base16-light.css';
+@import 'codemirror/theme/dracula.css';
+@import 'codemirror/theme/eclipse.css';
+@import 'codemirror/theme/elegant.css';
+@import 'codemirror/theme/icecoder.css';
+@import 'codemirror/theme/lesser-dark.css';
+@import 'codemirror/theme/material.css';
+@import 'codemirror/theme/mdn-like.css';
+@import 'codemirror/theme/midnight.css';
+@import 'codemirror/theme/monokai.css';
+@import 'codemirror/theme/neat.css';
+@import 'codemirror/theme/neo.css';
+@import 'codemirror/theme/pastel-on-dark.css';
+@import 'codemirror/theme/railscasts.css';
+@import 'codemirror/theme/seti.css';
+@import 'codemirror/theme/solarized.css';
+@import 'codemirror/theme/tomorrow-night-bright.css';
+@import 'codemirror/theme/tomorrow-night-eighties.css';
+@import 'codemirror/theme/ttcn.css';
+@import 'codemirror/theme/yeti.css';
+
+/* Elements */
+@import '_menu';
+@import '_panel';
+@import '_editor';
+@import '_pickers';
+@import '_modals';
+@import '_errors';
+@import '_icons';
+
+
+
+@import 'dark';

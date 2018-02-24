@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>ShaderNinja</title>
+    <link type="text/css" rel="stylesheet" href="../build/shaderNinja.css">
+    <link type="text/css" rel="stylesheet" href="./css/ElectronApp.css">
+    <script src="../build/3rd/three.js"></script>
+    <script type="application/javascript" src="../build/shaderNinja.js"></script>
+
+    <script src="./js/UIShaderEditor.js"></script>
+    <script src="./js/UIShaderInput.js"></script>
+    <script src="./js/UIViewport.js"></script>
+    <script src="./js/UISettings.js"></script>
+    <script src="./js/UISettings.Texture.js"></script>
+    <script src="./js/UISettings.Object.js"></script>
+    <script src="./js/UISettings.Env.js"></script>
+    <script src="./js/UISettings.Editor.js"></script>
+    <script src="./js/UIMenubar.js"></script>
+    <script src="./js/UIMenubar.File.js"></script>
+    <script src="./js/ui.js"></script>
+    <script src="./js/ui.three.js"></script>
+    <script src="./js/Storage.js"></script>
+</head>
+
+<body>
+    <script>
+        //layout
+
+        window.shaderNinja = new ShaderNinja();
+
+        var shaderEditor = new UIShaderEditor();
+        document.body.appendChild(shaderEditor.dom);
+
+
+        var viewport = new UIViewport();
+        document.body.appendChild(viewport.dom);
+
+        window.shaderNinja.init(shaderEditor.dom, viewport.dom);
+
+        function onLoaded(){
+            //set ui data here.
+            var settings = new UISettings(window.shaderNinja);
+            document.body.appendChild(settings.container.dom);
+
+            window.shaderNinja.uiSettings = settings;
+            var menubar = new UIMenubar(window.shaderNinja);
+            document.body.appendChild(menubar.dom);
+
+            onWindowResize();
+        }
+        
+        function onWindowResize(event) {
+            window.shaderNinja.resize();
+        }
+        window.addEventListener('resize', onWindowResize, false);
+
+        var editor = window.shaderNinja;
+        editor.storage.init(function () {
+            editor.storage.get(function (state) {
+                if (isLoadingFromHash) return;
+                if (state !== undefined) {
+                    //editor.fromJSON(state, onLoaded);
+                    //editor.load('./data/download.json', onLoaded);
+                    editor.new(onLoaded);
+                }
+                else{
+                    editor.new(onLoaded);
+                    //editor.load('./data/download.json', onLoaded);
+                }
+            });
+
+
+            setInterval(function () {
+                var data = editor.toJSON();
+                editor.storage.set(data);
+                console.log("auto saved.")
+            }, 3000000);
+
+        });
+
+
+        var isLoadingFromHash = false;
+        var hash = window.location.hash;
+
+        if (hash.substr(1, 5) === 'file=') {
+
+            var file = hash.substr(6);
+
+            if (confirm('Any unsaved data will be lost. Are you sure?')) {
+                var loader = new THREE.FileLoader();
+                loader.crossOrigin = '';
+                loader.load(file, function (text) {
+                    editor.clear();
+                    editor.fromJSON(JSON.parse(text));
+                });
+                isLoadingFromHash = true;
+            }
+
+        }
+
+    </script>
+</body>
+
+</html>

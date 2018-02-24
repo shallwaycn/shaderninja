@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>ShaderNinja</title>
+    <link type="text/css" rel="stylesheet" href="../build/shaderNinja.css">
+    <link type="text/css" rel="stylesheet" href="./css/ElectronApp.css">
+    <script src="../build/3rd/three.js"></script>
+    <script type="application/javascript" src="../build/ThreeCanvas.js"></script>
+    <script src="./js/ui.js"></script>
+</head>
+
+<body>
+    <script>
+
+            var viewport = new UI.Panel();
+            viewport.setId( 'viewport' );
+            document.body.appendChild(viewport.dom);
+            var canvas = document.createElement('canvas');
+            canvas.setAttribute('class', 'three_canvas');
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            viewport.dom.appendChild(canvas);
+            var tc = new ThreeCanvas(canvas);
+            tc.new();
+
+
+            var sidebar = new UI.Panel();
+            sidebar.setId('sidebar');
+            document.body.appendChild(sidebar.dom);
+            var canvas2 = document.createElement('canvas');
+            canvas2.setAttribute('class', 'three_canvas');
+            canvas2.style.width = '100%';
+            canvas2.style.height = '100%';
+            sidebar.dom.appendChild(canvas2);
+            var tc2 = new ThreeCanvas(canvas2);
+            tc2.new();
+            
+    </script>
+</body>
+
+</html>

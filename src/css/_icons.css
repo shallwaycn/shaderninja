@@ -1,0 +1,23 @@
+.ge_export_icon {
+    position: relative;
+    float: right;
+    right: 8px;
+    bottom: 40px;
+    width: 32px;
+    height: 28px;
+    border-radius:16px;
+    padding-top:4px;
+    /*box-shadow: var(--modal-shadow);*/
+    user-select: none;
+    z-index: var(--z-menu);
+    text-align:center;
+    vertical-align: bottom;
+    background-color: rgba(0,0,0,.5);
+    font-size: 18px !important;
+    color: var(--ui-component-text-color);
+    cursor: pointer;
+}
+
+.ge_export_icon:hover {
+    color: var(--ui-highlight-color);
+}

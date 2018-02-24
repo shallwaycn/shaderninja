@@ -1,0 +1,457 @@
+{
+	"threeCanvas": {
+		"data": {
+			"textures": [
+				null,
+				null],
+			"images": {},
+			"editMode": 0,
+			"blending": 2,
+			"side": 2,
+			"transparent": true,
+			"objScale": {
+				"x": 8,
+				"y": 8,
+				"z": 8
+			},
+			"objPos": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"objRot": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"objectType": 0,
+			"flatShading": false,
+			"wireframe": false,
+			"depthWrite": true,
+			"depthTest": false,
+			"passDatas": [],
+			"showScene": true,
+			"useLight": false
+		},
+		"player": {
+			"metadata": {},
+			"scene": {
+				"metadata": {
+					"version": 4.5,
+					"type": "Object",
+					"generator": "Object3D.toJSON"
+				},
+				"geometries": [
+					{
+						"uuid": "1E15FCBA-D6C1-4B93-B473-A0AB5158DF49",
+						"type": "SphereGeometry",
+						"radius": 1,
+						"widthSegments": 50,
+						"heightSegments": 50
+					}],
+				"materials": [
+					{
+						"uuid": "E48D3383-FAF2-466F-8457-AC647E58EAB4",
+						"type": "ShaderMaterial",
+						"blending": 2,
+						"side": 2,
+						"transparent": true,
+						"depthFunc": 3,
+						"depthTest": false,
+						"depthWrite": true,
+						"uniforms": {
+							"iTime": {
+								"value": 72.45428
+							},
+							"iResolution": {
+								"value": {
+									"x": 492,
+									"y": 321
+								}
+							},
+							"iSceneTexture": {
+								"value": null
+							},
+							"iDepthTexture": {
+								"value": null
+							},
+							"iCameraNear": {
+								"value": 0.1
+							},
+							"iCameraFar": {
+								"value": 1000
+							},
+							"iLightDirection": {
+								"value": null
+							},
+							"iTexture0": {
+								"value": null
+							},
+							"iTexture1": {
+								"value": null
+							}
+						},
+						"vertexShader": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\n//header-end\r\nvarying vec3 fNormal;\nvarying vec3 fPosition;\nvarying vec2 fUV;\nvarying vec3 fView;\nvarying vec4 fProjPos;\n\nvec4 ComputeScreenPos(vec4 pos) {\n    vec4 o = pos * 0.5;\n    o.xy = vec2(o.x, o.y) + o.w;\n    o.zw = pos.zw;\n    return o;\n}\n\nvoid main()\n{\n    fNormal = normalize(normalMatrix * normal);\n    vec4 wpos = modelMatrix * vec4(position, 1.0);\n    fPosition = wpos.xyz;\n    fUV = uv;\n    fView = fPosition - cameraPosition;\n    vec4 clipPos = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n    fProjPos = ComputeScreenPos(clipPos);\n    \n    float inFrontOf = 0.0;\n    if (clipPos.z / clipPos.w > 0.0){\n        inFrontOf = 1.0;\n    }\n    // move projected z to near plane if point is behind near plane\n\tclipPos.z *= inFrontOf; \n    gl_Position = clipPos;\n}\n",
+						"fragmentShader": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\n//header-end\r\nvarying vec3 fPosition;\nvarying vec3 fNormal;\nvarying vec2 fUV;\nvarying vec3 fView;\nvarying vec4 fProjPos;\n\nfloat CalcVolumeFogIntensity(vec3 sphereCenter, float sphereRadius, vec3 cameraPosition, vec3 viewDirection, float backDepth, float maxDistance, float density)\n{\n\tvec3 local = cameraPosition - sphereCenter;\n\tfloat  fA      = dot(viewDirection, viewDirection);\n\tfloat  fB      = 2.0 * dot(viewDirection, local);\n\tfloat  fC      = dot(local, local) - sphereRadius * sphereRadius;\n\tfloat  fD      = fB * fB - 4.0 * fA * fC;\n\tif ( fD < 0.0 )\n\t\treturn 0.0;\n  \n  float recpTwoA = 0.5 / fA;\n  \n  float dist;\n\n  if (fD == 0.0)\n  {\n    dist = backDepth;\n  }\n  else\n  {\n    float DSqrt = sqrt(fD);\n    dist = (-fB - DSqrt) * recpTwoA;\n  }\n\n  dist = min(dist, maxDistance);\n  backDepth = min(backDepth, maxDistance);\n  \n  float sample = dist;\n  float fog = 0.0;\n  float step_distance = ( backDepth - dist ) / 10.0;\n  for ( int seg = 0; seg < 10; seg++ )\n  {\n    vec3 position = cameraPosition + viewDirection * sample;\n    fog += 1.0 - clamp( length( sphereCenter - position ) / sphereRadius, 0.0,1.0 );\n    sample += step_distance;\n  }\n  fog /= 10.0;\n  fog  = clamp( fog * density, 0.0, 1.0 );\n  return fog;\n}\n\n\nfloat perspectiveDepthToViewZ( const in float invClipZ, const in float near, const in float far ) {\n    return ( near * far ) / ( ( far - near ) * invClipZ - far );\n}\n\nfloat viewZToOrthographicDepth( const in float viewZ, const in float near, const in float far ) {\n    return ( viewZ + near ) / ( near - far );\n}\n\nfloat readDepth (sampler2D depthSampler, vec2 coord) {\n    float fragCoordZ = texture2D(depthSampler, coord).x;\n    float viewZ = perspectiveDepthToViewZ( fragCoordZ, iCameraNear, iCameraFar );\n    return viewZToOrthographicDepth( viewZ, iCameraNear, iCameraFar );\n}\n\nvoid main()\n{\n    float depth = readDepth(iDepthTexture,fProjPos.xy/fProjPos.w);\n    depth *= iCameraFar;\n\tfloat backDist = length(fView);\n\tvec3 viewDir = normalize(fView);\n\tfloat fog = CalcVolumeFogIntensity(vec3(0.0,0.0,0.0), 8.0, cameraPosition, viewDir, backDist, depth,sin(iTime*3.0)*0.3 + 1.0);\n    gl_FragColor.rgb = vec3(1.000,0.020,0.029);\n\tgl_FragColor.a = fog;\n    \n}\n"
+					}],
+				"object": {
+					"uuid": "DAED93A1-6496-4823-AD52-0AFA95F3270C",
+					"type": "Scene",
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+					"children": [
+						{
+							"uuid": "2DCBB314-3F41-4E41-831B-A88A48D94DA8",
+							"type": "Mesh",
+							"name": "MeshObj",
+							"matrix": [8,0,0,0,0,8,0,0,0,0,8,0,0,0,0,1],
+							"geometry": "1E15FCBA-D6C1-4B93-B473-A0AB5158DF49",
+							"material": "E48D3383-FAF2-466F-8457-AC647E58EAB4"
+						}]
+				}
+			},
+			"envScene": {
+				"metadata": {
+					"version": 4.5,
+					"type": "Object",
+					"generator": "Object3D.toJSON"
+				},
+				"geometries": [
+					{
+						"uuid": "A9AEF5DD-D014-41D9-8705-ECD9E7A80F6E",
+						"type": "BoxGeometry",
+						"width": 14,
+						"height": 0.1,
+						"depth": 14
+					},
+					{
+						"uuid": "58B3D3E3-EB1A-4B97-9F53-4DA106609A0D",
+						"type": "BoxGeometry",
+						"width": 1.440927,
+						"height": 7.805829,
+						"depth": 1.440927
+					},
+					{
+						"uuid": "31036B43-0BC3-4484-B4FF-F47D1710FEE7",
+						"type": "BoxGeometry",
+						"width": 1.021129,
+						"height": 1.950151,
+						"depth": 1.021129
+					},
+					{
+						"uuid": "BBCF8BE8-4CB1-478E-AFE4-F7CF1DC83A53",
+						"type": "BoxGeometry",
+						"width": 1.504105,
+						"height": 7.93723,
+						"depth": 1.504105
+					},
+					{
+						"uuid": "855F1588-F768-4FD5-A3FA-53994CDED26F",
+						"type": "BoxGeometry",
+						"width": 0.947176,
+						"height": 1.958772,
+						"depth": 0.947176
+					},
+					{
+						"uuid": "0B049526-6B42-4AB1-BEFB-65C7CE5EC79C",
+						"type": "BoxGeometry",
+						"width": 1.350413,
+						"height": 3.645519,
+						"depth": 1.350413
+					},
+					{
+						"uuid": "7CF3475C-16E5-4119-B832-EEDD9631E1EF",
+						"type": "BoxGeometry",
+						"width": 1.155717,
+						"height": 6.230341,
+						"depth": 1.155717
+					},
+					{
+						"uuid": "95C013C3-E34C-41A2-8B30-D9DA26B81AD1",
+						"type": "BoxGeometry",
+						"width": 0.950998,
+						"height": 2.994761,
+						"depth": 0.950998
+					},
+					{
+						"uuid": "D495648A-D6BD-49A7-BCE4-207CB70F1EF5",
+						"type": "BoxGeometry",
+						"width": 0.834636,
+						"height": 3.743385,
+						"depth": 0.834636
+					},
+					{
+						"uuid": "3D45D0A7-4409-4397-8408-3E0CEE9B1367",
+						"type": "BoxGeometry",
+						"width": 1.363688,
+						"height": 4.901075,
+						"depth": 1.363688
+					},
+					{
+						"uuid": "1DC4CE4C-5B07-4253-820C-5522A8CBE3FA",
+						"type": "BoxGeometry",
+						"width": 1.314293,
+						"height": 5.08973,
+						"depth": 1.314293
+					}],
+				"materials": [
+					{
+						"uuid": "455340B2-4404-460E-8800-97FA07448CE5",
+						"type": "MeshPhongMaterial",
+						"color": 8947848,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "F1E03910-DCDF-4116-A979-899220A17C10",
+						"type": "MeshPhongMaterial",
+						"color": 9763512,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "C53A2410-1AA4-4BBA-A06D-9954AB93FC4F",
+						"type": "MeshPhongMaterial",
+						"color": 11777724,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "55EBD2A2-2D9D-4E2B-BBF4-CC0ED63E099B",
+						"type": "MeshPhongMaterial",
+						"color": 8904970,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "7F3295AF-B739-4B5A-A45E-E67C9B4B2454",
+						"type": "MeshPhongMaterial",
+						"color": 9521078,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "C89A1C83-9F5E-4E02-951C-2BABC7DBF33A",
+						"type": "MeshPhongMaterial",
+						"color": 15189300,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "C5CF9104-D25D-42C1-B28A-6B46C838F390",
+						"type": "MeshPhongMaterial",
+						"color": 11365071,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "2AE441BF-74E9-45C9-8ED6-0982A09E3A62",
+						"type": "MeshPhongMaterial",
+						"color": 14588861,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "F1FCA907-F38B-4E15-957A-D1595D7DD355",
+						"type": "MeshPhongMaterial",
+						"color": 8565151,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "22D4992E-ADC7-4593-8A00-5DF7827A5427",
+						"type": "MeshPhongMaterial",
+						"color": 14816463,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "71001819-5159-49B2-8E09-10037250190C",
+						"type": "MeshPhongMaterial",
+						"color": 8814016,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					}],
+				"object": {
+					"uuid": "E283581C-FCF0-4BD9-8BF1-80E259CC7E5A",
+					"type": "Scene",
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+					"children": [
+						{
+							"uuid": "C278C5C9-45F6-4320-9AD3-4EA0BD8EF15A",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,-1,0,1],
+							"geometry": "A9AEF5DD-D014-41D9-8705-ECD9E7A80F6E",
+							"material": "455340B2-4404-460E-8800-97FA07448CE5"
+						},
+						{
+							"uuid": "4B228970-05E6-4C5C-A6DF-A3A1267C1D73",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,3.212724,2.902914,1.497407,1],
+							"geometry": "58B3D3E3-EB1A-4B97-9F53-4DA106609A0D",
+							"material": "F1E03910-DCDF-4116-A979-899220A17C10"
+						},
+						{
+							"uuid": "37A7D897-4B5F-476B-8831-3015742A99C1",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,5.469039,-0.024924,1.216708,1],
+							"geometry": "31036B43-0BC3-4484-B4FF-F47D1710FEE7",
+							"material": "C53A2410-1AA4-4BBA-A06D-9954AB93FC4F"
+						},
+						{
+							"uuid": "C3F772AA-B7D7-4704-AE2C-50F7C86D6756",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0.134022,2.968615,4.810373,1],
+							"geometry": "BBCF8BE8-4CB1-478E-AFE4-F7CF1DC83A53",
+							"material": "55EBD2A2-2D9D-4E2B-BBF4-CC0ED63E099B"
+						},
+						{
+							"uuid": "F6D4FE59-0C7A-470E-8986-FAB244C1F387",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-2.595404,-0.020614,-1.040022,1],
+							"geometry": "855F1588-F768-4FD5-A3FA-53994CDED26F",
+							"material": "7F3295AF-B739-4B5A-A45E-E67C9B4B2454"
+						},
+						{
+							"uuid": "29B8E275-CAE8-43DD-B640-5382B65FD6C5",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,3.506023,0.822759,-0.056125,1],
+							"geometry": "0B049526-6B42-4AB1-BEFB-65C7CE5EC79C",
+							"material": "C89A1C83-9F5E-4E02-951C-2BABC7DBF33A"
+						},
+						{
+							"uuid": "55BA0975-9519-4019-A5FE-233D031B060D",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-3.687818,2.11517,-2.302887,1],
+							"geometry": "7CF3475C-16E5-4119-B832-EEDD9631E1EF",
+							"material": "C5CF9104-D25D-42C1-B28A-6B46C838F390"
+						},
+						{
+							"uuid": "FBD84661-518B-4B48-8849-4B8BBE5E98E6",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-3.718864,0.49738,2.249742,1],
+							"geometry": "95C013C3-E34C-41A2-8B30-D9DA26B81AD1",
+							"material": "2AE441BF-74E9-45C9-8ED6-0982A09E3A62"
+						},
+						{
+							"uuid": "F8A01552-FF34-4B75-AA2B-411F671E7772",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-5.027406,0.871692,2.440828,1],
+							"geometry": "D495648A-D6BD-49A7-BCE4-207CB70F1EF5",
+							"material": "F1FCA907-F38B-4E15-957A-D1595D7DD355"
+						},
+						{
+							"uuid": "C2B39811-45A5-4B20-9754-42A199D7FAF2",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,4.269401,1.450537,2.659834,1],
+							"geometry": "3D45D0A7-4409-4397-8408-3E0CEE9B1367",
+							"material": "22D4992E-ADC7-4593-8A00-5DF7827A5427"
+						},
+						{
+							"uuid": "3DFC2FEA-B5EF-47B3-BF68-4D4883CE3CDA",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-3.751968,1.544865,1.982821,1],
+							"geometry": "1DC4CE4C-5B07-4253-820C-5522A8CBE3FA",
+							"material": "71001819-5159-49B2-8E09-10037250190C"
+						},
+						{
+							"uuid": "6626E4C4-5EED-4339-AAF5-E3CC3F97B735",
+							"type": "AmbientLight",
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+							"color": 4210752,
+							"intensity": 1
+						}]
+				}
+			},
+			"frag": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\n//header-end\r\nvarying vec3 fPosition;\nvarying vec3 fNormal;\nvarying vec2 fUV;\nvarying vec3 fView;\nvarying vec4 fProjPos;\n\nfloat CalcVolumeFogIntensity(vec3 sphereCenter, float sphereRadius, vec3 cameraPosition, vec3 viewDirection, float backDepth, float maxDistance, float density)\n{\n\tvec3 local = cameraPosition - sphereCenter;\n\tfloat  fA      = dot(viewDirection, viewDirection);\n\tfloat  fB      = 2.0 * dot(viewDirection, local);\n\tfloat  fC      = dot(local, local) - sphereRadius * sphereRadius;\n\tfloat  fD      = fB * fB - 4.0 * fA * fC;\n\tif ( fD < 0.0 )\n\t\treturn 0.0;\n  \n  float recpTwoA = 0.5 / fA;\n  \n  float dist;\n\n  if (fD == 0.0)\n  {\n    dist = backDepth;\n  }\n  else\n  {\n    float DSqrt = sqrt(fD);\n    dist = (-fB - DSqrt) * recpTwoA;\n  }\n\n  dist = min(dist, maxDistance);\n  backDepth = min(backDepth, maxDistance);\n  \n  float sample = dist;\n  float fog = 0.0;\n  float step_distance = ( backDepth - dist ) / 10.0;\n  for ( int seg = 0; seg < 10; seg++ )\n  {\n    vec3 position = cameraPosition + viewDirection * sample;\n    fog += 1.0 - clamp( length( sphereCenter - position ) / sphereRadius, 0.0,1.0 );\n    sample += step_distance;\n  }\n  fog /= 10.0;\n  fog  = clamp( fog * density, 0.0, 1.0 );\n  return fog;\n}\n\n\nfloat perspectiveDepthToViewZ( const in float invClipZ, const in float near, const in float far ) {\n    return ( near * far ) / ( ( far - near ) * invClipZ - far );\n}\n\nfloat viewZToOrthographicDepth( const in float viewZ, const in float near, const in float far ) {\n    return ( viewZ + near ) / ( near - far );\n}\n\nfloat readDepth (sampler2D depthSampler, vec2 coord) {\n    float fragCoordZ = texture2D(depthSampler, coord).x;\n    float viewZ = perspectiveDepthToViewZ( fragCoordZ, iCameraNear, iCameraFar );\n    return viewZToOrthographicDepth( viewZ, iCameraNear, iCameraFar );\n}\n\nvoid main()\n{\n    float depth = readDepth(iDepthTexture,fProjPos.xy/fProjPos.w);\n    depth *= iCameraFar;\n\tfloat backDist = length(fView);\n\tvec3 viewDir = normalize(fView);\n\tfloat fog = CalcVolumeFogIntensity(vec3(0.0,0.0,0.0), 8.0, cameraPosition, viewDir, backDist, depth,sin(iTime*3.0)*0.3 + 1.0);\n    gl_FragColor.rgb = vec3(1.000,0.020,0.029);\n\tgl_FragColor.a = fog;\n    \n}\n",
+			"vert": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\n//header-end\r\nvarying vec3 fNormal;\nvarying vec3 fPosition;\nvarying vec2 fUV;\nvarying vec3 fView;\nvarying vec4 fProjPos;\n\nvec4 ComputeScreenPos(vec4 pos) {\n    vec4 o = pos * 0.5;\n    o.xy = vec2(o.x, o.y) + o.w;\n    o.zw = pos.zw;\n    return o;\n}\n\nvoid main()\n{\n    fNormal = normalize(normalMatrix * normal);\n    vec4 wpos = modelMatrix * vec4(position, 1.0);\n    fPosition = wpos.xyz;\n    fUV = uv;\n    fView = fPosition - cameraPosition;\n    vec4 clipPos = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n    fProjPos = ComputeScreenPos(clipPos);\n    \n    float inFrontOf = 0.0;\n    if (clipPos.z / clipPos.w > 0.0){\n        inFrontOf = 1.0;\n    }\n    // move projected z to near plane if point is behind near plane\n\tclipPos.z *= inFrontOf; \n    gl_Position = clipPos;\n}\n"
+		},
+		"cameraPos": {
+			"x": -5.886324,
+			"y": 3.384015,
+			"z": -9.326298
+		},
+		"cameraRot": {
+			"x": -3.047164,
+			"y": -0.492293,
+			"z": -3.096858
+		},
+		"cameraController": {
+			"target": {
+				"x": -0.572277,
+				"y": 2.449803,
+				"z": 0.537597
+			}
+		}
+	},
+	"data": {
+		"vertText": "varying vec3 fNormal;\nvarying vec3 fPosition;\nvarying vec2 fUV;\nvarying vec3 fView;\nvarying vec4 fProjPos;\n\nvec4 ComputeScreenPos(vec4 pos) {\n    vec4 o = pos * 0.5;\n    o.xy = vec2(o.x, o.y) + o.w;\n    o.zw = pos.zw;\n    return o;\n}\n\nvoid main()\n{\n    fNormal = normalize(normalMatrix * normal);\n    vec4 wpos = modelMatrix * vec4(position, 1.0);\n    fPosition = wpos.xyz;\n    fUV = uv;\n    fView = fPosition - cameraPosition;\n    vec4 clipPos = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n    fProjPos = ComputeScreenPos(clipPos);\n    \n    float inFrontOf = 0.0;\n    if (clipPos.z / clipPos.w > 0.0){\n        inFrontOf = 1.0;\n    }\n    // move projected z to near plane if point is behind near plane\n\tclipPos.z *= inFrontOf; \n    gl_Position = clipPos;\n}\n",
+		"fragText": "varying vec3 fPosition;\nvarying vec3 fNormal;\nvarying vec2 fUV;\nvarying vec3 fView;\nvarying vec4 fProjPos;\n\nfloat CalcVolumeFogIntensity(vec3 sphereCenter, float sphereRadius, vec3 cameraPosition, vec3 viewDirection, float backDepth, float maxDistance, float density)\n{\n\tvec3 local = cameraPosition - sphereCenter;\n\tfloat  fA      = dot(viewDirection, viewDirection);\n\tfloat  fB      = 2.0 * dot(viewDirection, local);\n\tfloat  fC      = dot(local, local) - sphereRadius * sphereRadius;\n\tfloat  fD      = fB * fB - 4.0 * fA * fC;\n\tif ( fD < 0.0 )\n\t\treturn 0.0;\n  \n  float recpTwoA = 0.5 / fA;\n  \n  float dist;\n\n  if (fD == 0.0)\n  {\n    dist = backDepth;\n  }\n  else\n  {\n    float DSqrt = sqrt(fD);\n    dist = (-fB - DSqrt) * recpTwoA;\n  }\n\n  dist = min(dist, maxDistance);\n  backDepth = min(backDepth, maxDistance);\n  \n  float sample = dist;\n  float fog = 0.0;\n  float step_distance = ( backDepth - dist ) / 10.0;\n  for ( int seg = 0; seg < 10; seg++ )\n  {\n    vec3 position = cameraPosition + viewDirection * sample;\n    fog += 1.0 - clamp( length( sphereCenter - position ) / sphereRadius, 0.0,1.0 );\n    sample += step_distance;\n  }\n  fog /= 10.0;\n  fog  = clamp( fog * density, 0.0, 1.0 );\n  return fog;\n}\n\n\nfloat perspectiveDepthToViewZ( const in float invClipZ, const in float near, const in float far ) {\n    return ( near * far ) / ( ( far - near ) * invClipZ - far );\n}\n\nfloat viewZToOrthographicDepth( const in float viewZ, const in float near, const in float far ) {\n    return ( viewZ + near ) / ( near - far );\n}\n\nfloat readDepth (sampler2D depthSampler, vec2 coord) {\n    float fragCoordZ = texture2D(depthSampler, coord).x;\n    float viewZ = perspectiveDepthToViewZ( fragCoordZ, iCameraNear, iCameraFar );\n    return viewZToOrthographicDepth( viewZ, iCameraNear, iCameraFar );\n}\n\nvoid main()\n{\n    float depth = readDepth(iDepthTexture,fProjPos.xy/fProjPos.w);\n    depth *= iCameraFar;\n\tfloat backDist = length(fView);\n\tvec3 viewDir = normalize(fView);\n\tfloat fog = CalcVolumeFogIntensity(vec3(0.0,0.0,0.0), 8.0, cameraPosition, viewDir, backDist, depth,sin(iTime*3.0)*0.3 + 1.0);\n    gl_FragColor.rgb = vec3(1.000,0.020,0.029);\n\tgl_FragColor.a = fog;\n    \n}\n",
+		"editorSource": 2
+	}
+}

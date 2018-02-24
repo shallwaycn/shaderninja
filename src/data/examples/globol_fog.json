@@ -1,0 +1,511 @@
+{
+	"threeCanvas": {
+		"data": {
+			"textures": [
+				null,
+				null],
+			"images": {},
+			"editMode": 1,
+			"blending": 0,
+			"side": 0,
+			"transparent": false,
+			"objScale": {
+				"x": 1,
+				"y": 1,
+				"z": 1
+			},
+			"objPos": {
+				"x": -2.16,
+				"y": 0,
+				"z": 2.52
+			},
+			"objRot": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"objectType": 0,
+			"flatShading": false,
+			"wireframe": false,
+			"depthWrite": true,
+			"depthTest": true,
+			"passDatas": [
+				{
+					"downRes": 1,
+					"renderToScreen": true,
+					"frag": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform sampler2D iPass0;\r\n//header-end\r\nvarying vec3 fPosition;\nvarying vec3 fNormal;\nvarying vec2 fUV;\nvarying vec3 fView;\nvarying vec4 fProjPos;\n\nfloat perspectiveDepthToViewZ( const in float invClipZ, const in float near, const in float far ) {\n    return ( near * far ) / ( ( far - near ) * invClipZ - far );\n}\n\nfloat viewZToOrthographicDepth( const in float viewZ, const in float near, const in float far ) {\n    return ( viewZ + near ) / ( near - far );\n}\n\nfloat readDepth (sampler2D depthSampler, vec2 coord) {\n    float fragCoordZ = texture2D(depthSampler, coord).x;\n    float viewZ = perspectiveDepthToViewZ( fragCoordZ, iCameraNear, iCameraFar );\n    return viewZToOrthographicDepth( viewZ, iCameraNear, iCameraFar );\n}\n\nvoid main()\n{\n    float depth = readDepth(iDepthTexture,fProjPos.xy/fProjPos.w);\n    depth *= iCameraFar;\n    float fixDistance = sin(iTime*1.0) + 1.8;\n    depth/=fixDistance*8.0;\n    float ss=smoothstep(iCameraNear, clamp(iCameraNear+iCameraFar,0.0,1.0), depth);\n    depth =  ss * (1.0 - ss);\n\n    \n    vec4 fog=vec4(1.0-depth,1.0-depth,1.0-depth,1.0);\n    vec4 color = vec4(0.992,1.000,0.705,1.000);\n\n    gl_FragColor = fog * color;\n}",
+					"vertex": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform sampler2D iPass0;\r\n//header-end\r\nvarying vec3 fNormal;\nvarying vec3 fPosition;\nvarying vec2 fUV;\nvarying vec3 fView;\nvarying vec4 fProjPos;\n\nvec4 ComputeScreenPos(vec4 pos) {\n    vec4 o = pos * 0.5;\n    o.xy = vec2(o.x, o.y) + o.w;\n    o.zw = pos.zw;\n    return o;\n}\n\nvoid main()\n{\n    fNormal = normalize(normalMatrix * normal);\n    vec4 wpos = modelMatrix * vec4(position, 1.0);\n    fPosition = wpos.xyz;\n    fUV = uv;\n    fView = fPosition - cameraPosition;\n    vec4 clipPos = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n    fProjPos = ComputeScreenPos(clipPos);\n    \n    float inFrontOf = 0.0;\n    if (clipPos.z / clipPos.w > 0.0){\n        inFrontOf = 1.0;\n    }\n    // move projected z to near plane if point is behind near plane\n\tclipPos.z *= inFrontOf; \n    gl_Position = clipPos;\n}",
+					"passName": "globolfog"
+				}],
+			"showScene": true,
+			"useLight": false
+		},
+		"player": {
+			"metadata": {},
+			"scene": {
+				"metadata": {
+					"version": 4.5,
+					"type": "Object",
+					"generator": "Object3D.toJSON"
+				},
+				"geometries": [
+					{
+						"uuid": "0C89555D-19ED-45A2-8BE1-B9CAF22F6B25",
+						"type": "SphereGeometry",
+						"radius": 1,
+						"widthSegments": 50,
+						"heightSegments": 50
+					}],
+				"materials": [
+					{
+						"uuid": "D74B4DA3-FCDB-4308-B088-DE48E547AB6D",
+						"type": "ShaderMaterial",
+						"blending": 0,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true,
+						"uniforms": {
+							"iTime": {
+								"value": 2452.14659
+							},
+							"iResolution": {
+								"value": {
+									"x": 960,
+									"y": 499
+								}
+							},
+							"iSceneTexture": {
+								"value": {
+									"uuid": "E1DA9490-996E-4193-9DB1-63F5E68202D5",
+									"width": 960,
+									"height": 499,
+									"scissor": {
+										"x": 0,
+										"y": 0,
+										"z": 960,
+										"w": 499
+									},
+									"scissorTest": false,
+									"viewport": {
+										"x": 0,
+										"y": 0,
+										"z": 960,
+										"w": 499
+									},
+									"texture": {
+										"metadata": {
+											"version": 4.5,
+											"type": "Texture",
+											"generator": "Texture.toJSON"
+										},
+										"uuid": "482AC001-66EA-4AFC-9C72-BC9316423FA0",
+										"name": "",
+										"mapping": 300,
+										"repeat": [1,1],
+										"offset": [0,0],
+										"center": [0,0],
+										"rotation": 0,
+										"wrap": [1001,1001],
+										"minFilter": 1003,
+										"magFilter": 1003,
+										"anisotropy": 1,
+										"flipY": true
+									},
+									"depthBuffer": true,
+									"stencilBuffer": false,
+									"depthTexture": null,
+									"_listeners": {
+										"dispose": [
+											null]
+									}
+								}
+							},
+							"iDepthTexture": {
+								"value": null
+							},
+							"iCameraNear": {
+								"value": 0.1
+							},
+							"iCameraFar": {
+								"value": 1000
+							},
+							"iLightDirection": {
+								"value": null
+							},
+							"iTexture0": {
+								"value": null
+							},
+							"iTexture1": {
+								"value": null
+							},
+							"iPass0": {
+								"value": null
+							},
+							"iPass1": {
+								"value": null
+							}
+						},
+						"vertexShader": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform sampler2D iPass0;\r\n//header-end\r\nvarying vec3 fNormal;\nvarying vec3 fPosition;\nvarying vec2 fUV;\n\nvoid main()\n{\n    fNormal = normal;\n    vec4 wpos = modelMatrix * vec4(position, 1.0);\n    fPosition = wpos.xyz;\n    fUV = uv;\n    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n}\n",
+						"fragmentShader": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform sampler2D iPass0;\r\n//header-end\r\nvarying vec3 fPosition;\nvarying vec3 fNormal;\nvarying vec2 fUV;\n\nvec3 rim(vec3 color, float start, float end, float coef)\n{\n  vec3 normal = normalize(fNormal);\n  vec3 eye = normalize(cameraPosition- fPosition);\n  float rim = smoothstep(start, end, 1.0 - dot(normal, eye));\n  return clamp(rim, 0.0, 1.0) * coef * color;\n}\n\n\nvoid main()\n{\n    vec3 rimColor = rim(vec3(0.764,1.000,0.857),0.360,1.144,1.816);\n    vec3 baseColor = fNormal * sin(iTime * 3.0);\n    gl_FragColor = vec4(rimColor + baseColor,1.0);\n}\n"
+					}],
+				"object": {
+					"uuid": "BA8C2179-CC50-407A-9BD8-FFCA26C1FCBF",
+					"type": "Scene",
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+					"children": [
+						{
+							"uuid": "C04BD8AE-B018-463A-89B6-852D216B1F60",
+							"type": "Mesh",
+							"name": "MeshObj",
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-2.16,0,2.52,1],
+							"geometry": "0C89555D-19ED-45A2-8BE1-B9CAF22F6B25",
+							"material": "D74B4DA3-FCDB-4308-B088-DE48E547AB6D"
+						}]
+				}
+			},
+			"envScene": {
+				"metadata": {
+					"version": 4.5,
+					"type": "Object",
+					"generator": "Object3D.toJSON"
+				},
+				"geometries": [
+					{
+						"uuid": "0234B090-1E57-4CB7-8BBD-8E69C180740E",
+						"type": "BoxGeometry",
+						"width": 14,
+						"height": 0.1,
+						"depth": 14
+					},
+					{
+						"uuid": "3685E9F4-05A1-4607-AA87-E10D277781B1",
+						"type": "BoxGeometry",
+						"width": 1.108382,
+						"height": 2.706167,
+						"depth": 1.108382
+					},
+					{
+						"uuid": "C6FB7939-53A9-4E0B-928D-E8818882582B",
+						"type": "BoxGeometry",
+						"width": 1.198992,
+						"height": 1.720873,
+						"depth": 1.198992
+					},
+					{
+						"uuid": "A9382E56-0880-485B-B37D-20512A452940",
+						"type": "BoxGeometry",
+						"width": 0.806432,
+						"height": 6.071108,
+						"depth": 0.806432
+					},
+					{
+						"uuid": "79CE1DD2-13C7-4153-B312-FC9FFA56A8CF",
+						"type": "BoxGeometry",
+						"width": 0.838983,
+						"height": 2.326376,
+						"depth": 0.838983
+					},
+					{
+						"uuid": "8DF7BD9D-7BD4-442A-A213-6EA9B03EB523",
+						"type": "BoxGeometry",
+						"width": 0.966575,
+						"height": 7.254609,
+						"depth": 0.966575
+					},
+					{
+						"uuid": "31E991C4-5C6F-4719-9FEE-1283A4DCCE19",
+						"type": "BoxGeometry",
+						"width": 1.489993,
+						"height": 3.684066,
+						"depth": 1.489993
+					},
+					{
+						"uuid": "034C24AF-9856-48FD-A706-8E3FC2F5355E",
+						"type": "BoxGeometry",
+						"width": 0.832538,
+						"height": 4.989613,
+						"depth": 0.832538
+					},
+					{
+						"uuid": "174399BF-28CE-45EA-A930-E43BFBAF324C",
+						"type": "BoxGeometry",
+						"width": 1.033159,
+						"height": 3.326205,
+						"depth": 1.033159
+					},
+					{
+						"uuid": "AD40EC88-3CB0-482B-A7F6-E06F11DC215C",
+						"type": "BoxGeometry",
+						"width": 0.984955,
+						"height": 3.411335,
+						"depth": 0.984955
+					},
+					{
+						"uuid": "0995F7E0-DD06-4C12-B3AC-BAB8A16D0277",
+						"type": "BoxGeometry",
+						"width": 1.100378,
+						"height": 3.480228,
+						"depth": 1.100378
+					}],
+				"materials": [
+					{
+						"uuid": "DB4A0528-C59F-4007-8BD7-E858FB9B642E",
+						"type": "MeshPhongMaterial",
+						"color": 8947848,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "C02AD9F0-9AAD-4235-A8F3-AB53754C884C",
+						"type": "MeshPhongMaterial",
+						"color": 15093294,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "A119C027-69C7-4A7E-9E7C-854534665133",
+						"type": "MeshPhongMaterial",
+						"color": 15777822,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "906C70D1-6B8F-4D8E-B84C-9C7D70C33D31",
+						"type": "MeshPhongMaterial",
+						"color": 16564719,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "3C6912A4-8C7A-4097-AAFB-958E6F23349F",
+						"type": "MeshPhongMaterial",
+						"color": 14821382,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "59C6D9FC-6A37-49CD-90C4-E8973985EF66",
+						"type": "MeshPhongMaterial",
+						"color": 11725041,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "6D8F1A7D-5BF9-4874-B595-AE0D99E4E3E3",
+						"type": "MeshPhongMaterial",
+						"color": 11383886,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "20CAAA18-4849-4A57-B577-09DA7E86DEC1",
+						"type": "MeshPhongMaterial",
+						"color": 9515266,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "4F46FE3D-2622-4BDC-88C5-B03F35C24D4A",
+						"type": "MeshPhongMaterial",
+						"color": 15181734,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "935E4930-6BDD-4276-8B24-7410248D11A9",
+						"type": "MeshPhongMaterial",
+						"color": 12727936,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					},
+					{
+						"uuid": "523B2A45-0BD7-44D5-BAC4-E6AF349699B5",
+						"type": "MeshPhongMaterial",
+						"color": 14343729,
+						"emissive": 0,
+						"specular": 1118481,
+						"shininess": 30,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true
+					}],
+				"object": {
+					"uuid": "C8DA4AF0-B461-426F-822D-ECE109D2C16A",
+					"type": "Scene",
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+					"children": [
+						{
+							"uuid": "6DDD72BD-A091-4538-A513-0B0E22E5B364",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,-1,0,1],
+							"geometry": "0234B090-1E57-4CB7-8BBD-8E69C180740E",
+							"material": "DB4A0528-C59F-4007-8BD7-E858FB9B642E"
+						},
+						{
+							"uuid": "D8CAFA6D-5ED3-434F-A521-FD33808BACA6",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-6.991389,0.353084,-6.219395,1],
+							"geometry": "3685E9F4-05A1-4607-AA87-E10D277781B1",
+							"material": "C02AD9F0-9AAD-4235-A8F3-AB53754C884C"
+						},
+						{
+							"uuid": "4B24CB51-2888-434A-9D88-AACA4315FCDD",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,6.548851,-0.139563,-1.945179,1],
+							"geometry": "C6FB7939-53A9-4E0B-928D-E8818882582B",
+							"material": "A119C027-69C7-4A7E-9E7C-854534665133"
+						},
+						{
+							"uuid": "97092184-9642-4FFB-8E21-A2C899F43725",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-3.095061,2.035554,-2.563798,1],
+							"geometry": "A9382E56-0880-485B-B37D-20512A452940",
+							"material": "906C70D1-6B8F-4D8E-B84C-9C7D70C33D31"
+						},
+						{
+							"uuid": "6B405716-EF19-49CE-A641-38A6A4FEEA8B",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,3.237768,0.163188,6.685413,1],
+							"geometry": "79CE1DD2-13C7-4153-B312-FC9FFA56A8CF",
+							"material": "3C6912A4-8C7A-4097-AAFB-958E6F23349F"
+						},
+						{
+							"uuid": "29635C5E-9E6E-4B28-B7D0-ABAA9B3922F2",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,2.360589,2.627304,4.590653,1],
+							"geometry": "8DF7BD9D-7BD4-442A-A213-6EA9B03EB523",
+							"material": "59C6D9FC-6A37-49CD-90C4-E8973985EF66"
+						},
+						{
+							"uuid": "39905477-D5B5-4E78-8D79-D6E8F7A3BD71",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,1.125622,0.842033,-0.094045,1],
+							"geometry": "31E991C4-5C6F-4719-9FEE-1283A4DCCE19",
+							"material": "6D8F1A7D-5BF9-4874-B595-AE0D99E4E3E3"
+						},
+						{
+							"uuid": "1B4B0A74-4C12-4557-B4B5-4874E4579F2C",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-6.25974,1.494807,-2.102161,1],
+							"geometry": "034C24AF-9856-48FD-A706-8E3FC2F5355E",
+							"material": "20CAAA18-4849-4A57-B577-09DA7E86DEC1"
+						},
+						{
+							"uuid": "6FAA1D36-92AC-4A14-9DBA-A92BA3AFF7E4",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,2.548207,0.663102,-0.938755,1],
+							"geometry": "174399BF-28CE-45EA-A930-E43BFBAF324C",
+							"material": "4F46FE3D-2622-4BDC-88C5-B03F35C24D4A"
+						},
+						{
+							"uuid": "1EE47AEA-377D-4AA3-9D08-7D694B6DB350",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-4.442079,0.705667,-2.254997,1],
+							"geometry": "AD40EC88-3CB0-482B-A7F6-E06F11DC215C",
+							"material": "935E4930-6BDD-4276-8B24-7410248D11A9"
+						},
+						{
+							"uuid": "454537AC-60FF-41A4-8D21-2AB73CDBFDE7",
+							"type": "Mesh",
+							"castShadow": true,
+							"receiveShadow": true,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-3.497862,0.740114,6.769584,1],
+							"geometry": "0995F7E0-DD06-4C12-B3AC-BAB8A16D0277",
+							"material": "523B2A45-0BD7-44D5-BAC4-E6AF349699B5"
+						},
+						{
+							"uuid": "780D13E5-62D2-472B-BFBE-E301353470AD",
+							"type": "AmbientLight",
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+							"color": 4210752,
+							"intensity": 1
+						}]
+				}
+			},
+			"frag": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform sampler2D iPass0;\r\n//header-end\r\nvarying vec3 fPosition;\nvarying vec3 fNormal;\nvarying vec2 fUV;\n\nvec3 rim(vec3 color, float start, float end, float coef)\n{\n  vec3 normal = normalize(fNormal);\n  vec3 eye = normalize(cameraPosition- fPosition);\n  float rim = smoothstep(start, end, 1.0 - dot(normal, eye));\n  return clamp(rim, 0.0, 1.0) * coef * color;\n}\n\n\nvoid main()\n{\n    vec3 rimColor = rim(vec3(0.764,1.000,0.857),0.360,1.144,1.816);\n    vec3 baseColor = fNormal * sin(iTime * 3.0);\n    gl_FragColor = vec4(rimColor + baseColor,1.0);\n}\n",
+			"vert": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform sampler2D iPass0;\r\n//header-end\r\nvarying vec3 fNormal;\nvarying vec3 fPosition;\nvarying vec2 fUV;\n\nvoid main()\n{\n    fNormal = normal;\n    vec4 wpos = modelMatrix * vec4(position, 1.0);\n    fPosition = wpos.xyz;\n    fUV = uv;\n    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n}\n"
+		},
+		"cameraPos": {
+			"x": -9.813225,
+			"y": 2.757715,
+			"z": 0.256968
+		},
+		"cameraRot": {
+			"x": -1.477883,
+			"y": -1.295714,
+			"z": -1.474275
+		},
+		"cameraController": {
+			"target": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			}
+		}
+	},
+	"data": {
+		"vertText": "varying vec3 fNormal;\nvarying vec3 fPosition;\nvarying vec2 fUV;\nvarying vec3 fView;\nvarying vec4 fProjPos;\n\nvec4 ComputeScreenPos(vec4 pos) {\n    vec4 o = pos * 0.5;\n    o.xy = vec2(o.x, o.y) + o.w;\n    o.zw = pos.zw;\n    return o;\n}\n\nvoid main()\n{\n    fNormal = normalize(normalMatrix * normal);\n    vec4 wpos = modelMatrix * vec4(position, 1.0);\n    fPosition = wpos.xyz;\n    fUV = uv;\n    fView = fPosition - cameraPosition;\n    vec4 clipPos = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n    fProjPos = ComputeScreenPos(clipPos);\n    \n    float inFrontOf = 0.0;\n    if (clipPos.z / clipPos.w > 0.0){\n        inFrontOf = 1.0;\n    }\n    // move projected z to near plane if point is behind near plane\n\tclipPos.z *= inFrontOf; \n    gl_Position = clipPos;\n}",
+		"fragText": "varying vec3 fPosition;\nvarying vec3 fNormal;\nvarying vec2 fUV;\nvarying vec3 fView;\nvarying vec4 fProjPos;\n\nfloat perspectiveDepthToViewZ( const in float invClipZ, const in float near, const in float far ) {\n    return ( near * far ) / ( ( far - near ) * invClipZ - far );\n}\n\nfloat viewZToOrthographicDepth( const in float viewZ, const in float near, const in float far ) {\n    return ( viewZ + near ) / ( near - far );\n}\n\nfloat readDepth (sampler2D depthSampler, vec2 coord) {\n    float fragCoordZ = texture2D(depthSampler, coord).x;\n    float viewZ = perspectiveDepthToViewZ( fragCoordZ, iCameraNear, iCameraFar );\n    return viewZToOrthographicDepth( viewZ, iCameraNear, iCameraFar );\n}\n\nvoid main()\n{\n    float depth = readDepth(iDepthTexture,fProjPos.xy/fProjPos.w);\n    depth *= iCameraFar;\n    float fixDistance = sin(iTime*1.0) + 1.8;\n    depth/=fixDistance*8.0;\n    float ss=smoothstep(iCameraNear, clamp(iCameraNear+iCameraFar,0.0,1.0), depth);\n    depth =  ss * (1.0 - ss);\n\n    \n    vec4 fog=vec4(1.0-depth,1.0-depth,1.0-depth,1.0);\n    vec4 color = vec4(0.992,1.000,0.705,1.000);\n\n    gl_FragColor = fog * color;\n}",
+		"editorSource": 2
+	}
+}
