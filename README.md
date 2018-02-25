@@ -1,6 +1,6 @@
 # [Shader Ninja](http://shallway.ninja/shaderninja)
 
-Friendly 3D Game Shader Editor based on [three.js](https://github.com/mrdoob/three.js/) and [glslEditor](https://github.com/mrdoob/three.js/).
+Friendly 3D Game Shader Editor based on [three.js](https://github.com/mrdoob/three.js/) and [glslEditor](https://github.com/patriciogonzalezvivo/glslEditor).
 
 It was designed to help game programmers quickly iterate over shader development. With this tool you don't need to create a scene, material, shader, .cs files, etc. You only focus on the shader, just type in the editor and everthing will be live updated. 
 
@@ -38,6 +38,15 @@ For use just do:
 ```bash
 npm run start
 ```
+
+## TODOs
+
+- [ ] Twitter sharing options
+- [ ] Facebook sharing options
+- [ ] Auto Save
+- [ ] Cube Map
+- [ ] Custom 3D Model
+- [ ] Custom Lightning
 
 ## Author
 [Shallway](http://shallway.ninja)
