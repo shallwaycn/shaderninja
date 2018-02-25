@@ -37,6 +37,7 @@ UISettings.Texture = function ( editor ) {
 UISettings.Texture.prototype.constructor = UISettings.Texture;
 UISettings.Texture.prototype.update = function () {
 	this.textureContainer.clear();
+	let scope = this;
 	var textures = this.editor.threeCanvas.data.textures;
 	if ( textures.length > 0 ) {
 		//textureContainer.setDisplay( 'block' );
@@ -44,12 +45,12 @@ UISettings.Texture.prototype.update = function () {
 		for ( var i = 0; i < textures.length; i ++ ) {
 			var textureRow = new UI.Row();
 			textureRow.add( new UI.Text( 'iTexture' + i ).setWidth( '90px' ) );
-			var textureMap = new UI.Texture().onChange( (texture, index)=>{
-				this.editor.threeCanvas.data.textures[ index ] = texture;
+			var textureMap = new UI.Texture().onChange( function(texture, index){
+				scope.editor.threeCanvas.data.textures[ index ] = texture;
 			} );
 			textureMap.setIndex(i);
-			if (this.editor.threeCanvas.data.textures[i] != null){
-				textureMap.setValue(this.editor.threeCanvas.data.textures[i]);
+			if (scope.editor.threeCanvas.data.textures[i] != null){
+				textureMap.setValue(scope.editor.threeCanvas.data.textures[i]);
 				// editor.threeCanvas.data.textures[0].needsUpdate = true;
 				// editor.threeCanvas.data.textures[0].onUpdate = ()=>{
 				// 	textureMap.setValue.setValue(editor.threeCanvas.data.textures[0]);
@@ -57,8 +58,8 @@ UISettings.Texture.prototype.update = function () {
 				// };
 			}
 			textureRow.add( textureMap );
-			this.textureContainer.add( textureRow );
-			this.textureContainer.add( new UI.Break() );
+			scope.textureContainer.add( textureRow );
+			scope.textureContainer.add( new UI.Break() );
 		}
 	}
 };

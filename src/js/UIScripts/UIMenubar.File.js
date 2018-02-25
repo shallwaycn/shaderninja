@@ -51,7 +51,7 @@ UIMenubar.File = function ( editor ) {
 	fileInput.type = 'file';
 	fileInput.addEventListener( 'change', function ( event ) {
 		//console.log(fileInput.files[ 0 ]);
-		editor.load( fileInput.files[ 0 ].path, null );
+		editor.loadFromInput( fileInput.files[ 0 ], null );
 		form.reset();
 	} );
 	form.appendChild( fileInput );

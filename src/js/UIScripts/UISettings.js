@@ -21,25 +21,25 @@ var UISettings = function (editor) {
 
 	this.uiEditor = new UISettings.Editor(this.editor);
 	var editorset = new UI.Span().add(
-		scope.uiEditor.container,
+		scope.uiEditor.container
 	);
 	this.container.add(editorset);
 
 	this.uiTexture = new UISettings.Texture(this.editor);
 	var textures = new UI.Span().add(
-		scope.uiTexture.container,
+		scope.uiTexture.container
 	);
 	this.container.add(textures);
 
 	this.uiObject = new UISettings.Object(this.editor);
 	var objectset = new UI.Span().add(
-		scope.uiObject.container,
+		scope.uiObject.container
 	);
 	this.container.add(objectset);
 
 	this.uiEnv = new UISettings.Env(this.editor);
 	var envset = new UI.Span().add(
-		scope.uiEnv.container,
+		scope.uiEnv.container
 	);
 	this.container.add(envset);
 

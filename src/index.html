@@ -5,23 +5,24 @@
     <meta charset="UTF-8">
     <title>ShaderNinja</title>
     <link type="text/css" rel="stylesheet" href="../build/shaderNinja.css">
-    <link type="text/css" rel="stylesheet" href="./css/ElectronApp.css">
     <script src="../build/3rd/three.js"></script>
     <script type="application/javascript" src="../build/shaderNinja.js"></script>
 
-    <script src="./js/UIShaderEditor.js"></script>
-    <script src="./js/UIShaderInput.js"></script>
-    <script src="./js/UIViewport.js"></script>
-    <script src="./js/UISettings.js"></script>
-    <script src="./js/UISettings.Texture.js"></script>
-    <script src="./js/UISettings.Object.js"></script>
-    <script src="./js/UISettings.Env.js"></script>
-    <script src="./js/UISettings.Editor.js"></script>
-    <script src="./js/UIMenubar.js"></script>
-    <script src="./js/UIMenubar.File.js"></script>
-    <script src="./js/ui.js"></script>
-    <script src="./js/ui.three.js"></script>
-    <script src="./js/Storage.js"></script>
+    <script src="./js/UIScripts/UIShaderEditor.js"></script>
+    <script src="./js/UIScripts/UIShaderInput.js"></script>
+    <script src="./js/UIScripts/UIViewport.js"></script>
+    <script src="./js/UIScripts/UISettings.js"></script>
+    <script src="./js/UIScripts/UISettings.Texture.js"></script>
+    <script src="./js/UIScripts/UISettings.Object.js"></script>
+    <script src="./js/UIScripts/UISettings.Env.js"></script>
+    <script src="./js/UIScripts/UISettings.Editor.js"></script>
+    <script src="./js/UIScripts/UIMenubar.js"></script>
+    <script src="./js/UIScripts/UIMenubar.File.js"></script>
+    <script src="./js/UIScripts/UIMenubar.Status.js"></script>
+    <script src="./js/UIScripts/UIMenubar.Help.js"></script>
+    <script src="./js/UIScripts/ui.js"></script>
+    <script src="./js/UIScripts/ui.three.js"></script>
+    <script src="./js/UIScripts/Storage.js"></script>
 </head>
 
 <body>
@@ -84,19 +85,23 @@
         var isLoadingFromHash = false;
         var hash = window.location.hash;
 
+
         if (hash.substr(1, 5) === 'file=') {
 
+            isLoadingFromHash = true;
             var file = hash.substr(6);
+            console.log(file);
+            editor.load(file, onLoaded);
 
-            if (confirm('Any unsaved data will be lost. Are you sure?')) {
-                var loader = new THREE.FileLoader();
-                loader.crossOrigin = '';
-                loader.load(file, function (text) {
-                    editor.clear();
-                    editor.fromJSON(JSON.parse(text));
-                });
-                isLoadingFromHash = true;
-            }
+            // if (confirm('Any unsaved data will be lost. Are you sure?')) {
+            //     var loader = new THREE.FileLoader();
+            //     loader.crossOrigin = '';
+            //     loader.load(file, function (text) {
+            //         editor.clear();
+            //         editor.fromJSON(JSON.parse(text));
+            //     });
+            //     isLoadingFromHash = true;
+            // }
 
         }
 

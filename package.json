@@ -9,6 +9,7 @@
     "start": "electron .",
     "package-local": "electron-packager . --out ./build --overwrite",
     "package-all": "electron-packager . --out ./build --overwrite --all",
+    "postinstall": "ln -nsf ../src/js node_modules/app",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint *.js src/"
   },

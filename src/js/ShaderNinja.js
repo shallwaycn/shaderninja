@@ -10,70 +10,70 @@ import { saveAs } from './vendor/FileSaver.min.js';
 
 export default class ShaderNinja {
     initShaderEditor(inited) {
-        if (inited){
+        if (inited) {
             return;
         }
 
         // Default Context
         //if (!this.options.frag) {
-            var innerHTML = this.shaderContainer.innerHTML.replace(/&lt;br&gt;/g, "");
-            innerHTML = innerHTML.replace(/<br>/g, "");
-            innerHTML = innerHTML.replace(/&nbsp;/g, "");
-            innerHTML = innerHTML.replace(/&lt;/g, "<");
-            innerHTML = innerHTML.replace(/&gt;/g, ">");
-            innerHTML = innerHTML.replace(/&amp;/g, "&");
-            //this.options.frag = innerHTML || EMPTY_FRAG_SHADER;
+        var innerHTML = this.shaderContainer.innerHTML.replace(/&lt;br&gt;/g, "");
+        innerHTML = innerHTML.replace(/<br>/g, "");
+        innerHTML = innerHTML.replace(/&nbsp;/g, "");
+        innerHTML = innerHTML.replace(/&lt;/g, "<");
+        innerHTML = innerHTML.replace(/&gt;/g, ">");
+        innerHTML = innerHTML.replace(/&amp;/g, "&");
+        //this.options.frag = innerHTML || EMPTY_FRAG_SHADER;
 
-            if (innerHTML) {
-                this.shaderContainer.innerHTML = '';
-            }
-        if (this.data.editorSource == 0){
-            this.shaderEditor = initEditor(this, this.shaderContainer,this.inputHeader());
+        if (innerHTML) {
+            this.shaderContainer.innerHTML = '';
         }
-        else if (this.data.editorSource == 1){
-            this.shaderEditor = initEditor(this, this.shaderContainer,this.data.vertText);
+        if (this.data.editorSource == 0) {
+            this.shaderEditor = initEditor(this, this.shaderContainer, this.inputHeader());
         }
-        else{
-            this.shaderEditor = initEditor(this, this.shaderContainer,this.data.fragText);
+        else if (this.data.editorSource == 1) {
+            this.shaderEditor = initEditor(this, this.shaderContainer, this.data.vertText);
+        }
+        else {
+            this.shaderEditor = initEditor(this, this.shaderContainer, this.data.fragText);
         }
         this.shaderEditor.on('change', () => {
             this.updateShader();
         });
-        this.errorsDisplay = new ErrorsDisplay(this,this.shaderEditor);
-        this.shaderHelpers = new Helpers(this,this.shaderEditor);
+        this.errorsDisplay = new ErrorsDisplay(this, this.shaderEditor);
+        this.shaderHelpers = new Helpers(this, this.shaderEditor);
     }
 
-    inputHeader(){
+    inputHeader() {
         return ThreeCanvas.VERTEX_HEADER_THREE + this.threeCanvas.getInputHeader();
     }
 
     updateShader() {
 
-        if (this.data.editorSource == 0){
+        if (this.data.editorSource == 0) {
             return;
         }
 
-        if (this.data.editorSource == 1){
+        if (this.data.editorSource == 1) {
             this.data.vertText = this.shaderEditor.getValue();
         }
-        else{
+        else {
             this.data.fragText = this.shaderEditor.getValue();
         }
 
         this.threeCanvas.checkLoadEditorShader(this.data.fragText, this.data.vertText);
     }
 
-    new(finishedCB){
+    new(finishedCB) {
         let sandbox = this;
-        this.threeCanvas.new(()=>{
+        this.threeCanvas.new(() => {
             sandbox.data.fragText = sandbox.threeCanvas.curFragSahder();
             sandbox.data.vertText = sandbox.threeCanvas.curVertexShader();
             sandbox.initShaderEditor(sandbox.inited);
             sandbox.inited = true;
-            if (finishedCB != null){
+            if (finishedCB != null) {
                 finishedCB();
             }
-            if (sandbox.uiSettings != undefined){
+            if (sandbox.uiSettings != undefined) {
                 sandbox.uiSettings.update();
             }
             sandbox.updateData();
@@ -88,23 +88,34 @@ export default class ShaderNinja {
             sandbox.fromJSON(dataJSON,finishedCB);
         } );
     }
-    toJSON(){
-		return {
-			threeCanvas: this.threeCanvas.toJSON(),
-			data: this.data,
-		};
+
+    loadFromInput(file, finishedCB) {
+        var reader = new FileReader();
+        let sandbox = this;
+        reader.addEventListener('load', function (event) {
+            var dataJSON = JSON.parse(event.target.result);
+            sandbox.fromJSON(dataJSON, finishedCB)
+        }, false);
+        reader.readAsText(file);
     }
 
-    fromJSON(json,finishedCB){
+    toJSON() {
+        return {
+            threeCanvas: this.threeCanvas.toJSON(),
+            data: this.data,
+        };
+    }
+
+    fromJSON(json, finishedCB) {
         this.data = json.data;
-        this.threeCanvas.loadFromJSON(json.threeCanvas,()=>{
+        this.threeCanvas.loadFromJSON(json.threeCanvas, () => {
             this.initShaderEditor(this.inited);
             this.inited = true;
-            if (finishedCB != null){
+            if (finishedCB != null) {
                 finishedCB();
             }
             this.updateData();
-            if (this.uiSettings != undefined){
+            if (this.uiSettings != undefined) {
                 this.uiSettings.update();
             }
         });
@@ -118,8 +129,8 @@ export default class ShaderNinja {
     }
 
 
-    
-    init(shaderContainer, viewportContainer, options){
+
+    init(shaderContainer, viewportContainer, options) {
         this.inited = false;
         this.options = {};
         this.change = false;
@@ -132,7 +143,7 @@ export default class ShaderNinja {
         this.data = {
             vertText: '',
             fragText: '',
-            editorSource:2,
+            editorSource: 2,
         };
 
         this.shaderContainer = shaderContainer;
@@ -162,9 +173,9 @@ export default class ShaderNinja {
         this.on('editor_objectType_changed', (args) => {
             this.threeCanvas.data.objectType = parseInt(args.content);
             this.threeCanvas.player.setObject(this.threeCanvas.data.objectType);
-            this.threeCanvas.player.currentObj().scale.set( this.threeCanvas.data.objScale.x, this.threeCanvas.data.objScale.y, this.threeCanvas.data.objScale.z );
-            this.threeCanvas.player.currentObj().position.set( this.threeCanvas.data.objPos.x, this.threeCanvas.data.objPos.y, this.threeCanvas.data.objPos.z );
-            this.threeCanvas.player.currentObj().rotation.set( this.threeCanvas.data.objRot.x, this.threeCanvas.data.objRot.y, this.threeCanvas.data.objRot.z );
+            this.threeCanvas.player.currentObj().scale.set(this.threeCanvas.data.objScale.x, this.threeCanvas.data.objScale.y, this.threeCanvas.data.objScale.z);
+            this.threeCanvas.player.currentObj().position.set(this.threeCanvas.data.objPos.x, this.threeCanvas.data.objPos.y, this.threeCanvas.data.objPos.z);
+            this.threeCanvas.player.currentObj().rotation.set(this.threeCanvas.data.objRot.x, this.threeCanvas.data.objRot.y, this.threeCanvas.data.objRot.z);
         });
 
         this.on('editor_blending_changed', (args) => {
@@ -188,18 +199,18 @@ export default class ShaderNinja {
         });
 
         this.on('editor_transparent_changed', (args) => {
-            this.threeCanvas.data.transparent = args.content; 
-            this.threeCanvas.player.curMaterial().transparent = args.content; 
+            this.threeCanvas.data.transparent = args.content;
+            this.threeCanvas.player.curMaterial().transparent = args.content;
         });
 
         this.on('editor_depthwrite_changed', (args) => {
-            this.threeCanvas.data.depthWrite = args.content; 
-            this.threeCanvas.player.curMaterial().depthWrite = args.content; 
+            this.threeCanvas.data.depthWrite = args.content;
+            this.threeCanvas.player.curMaterial().depthWrite = args.content;
         });
 
         this.on('editor_depthtest_changed', (args) => {
-            this.threeCanvas.data.depthTest = args.content; 
-            this.threeCanvas.player.curMaterial().depthTest = args.content; 
+            this.threeCanvas.data.depthTest = args.content;
+            this.threeCanvas.player.curMaterial().depthTest = args.content;
         });
 
         this.on('editor_pass_added', (args) => {
@@ -215,7 +226,7 @@ export default class ShaderNinja {
         });
 
         this.on('editor_texture_added', (args) => {
-            this.threeCanvas.data.textures.push(null); 
+            this.threeCanvas.data.textures.push(null);
             //this.threeCanvas.refreshUniforms();
             this.updateData();
         });
@@ -226,7 +237,7 @@ export default class ShaderNinja {
         });
     }
 
-    updateData(){
+    updateData() {
 
 
         this.threeCanvas.refreshUniforms();
@@ -236,13 +247,13 @@ export default class ShaderNinja {
         this.data.vertText = this.threeCanvas.curVertexShader();
 
         //update editor source
-        if (this.data.editorSource == 0){
+        if (this.data.editorSource == 0) {
             this.shaderEditor.setValue(this.inputHeader());
         }
-        else if (this.data.editorSource == 1){
+        else if (this.data.editorSource == 1) {
             this.shaderEditor.setValue(this.data.vertText);
         }
-        else if (this.data.editorSource == 2){
+        else if (this.data.editorSource == 2) {
             this.shaderEditor.setValue(this.data.fragText);
         }
         this.updateShader();
@@ -256,11 +267,11 @@ export default class ShaderNinja {
     download() {
         let data = this.toJSON();
         let content = JSON.stringify(data,
-            (key,value)=>{
-            return typeof value === 'number' ? parseFloat( value.toFixed( 6 ) ) : value;
+            (key, value) => {
+                return typeof value === 'number' ? parseFloat(value.toFixed(6)) : value;
             },
-        '\t');
-		content = content.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, '$1' );
+            '\t');
+        content = content.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
 
         // let name = this.getTitle();
         // if (name !== '') {

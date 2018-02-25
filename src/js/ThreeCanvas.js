@@ -204,7 +204,7 @@ export default class ThreeCanvas {
                     value:0.0
                 },
                 iLightDirection:{
-                    value: new THREE.Vector3()
+                    value: new THREE.Vector3(0,0,0)
                 }
             };
         }
@@ -254,15 +254,16 @@ export default class ThreeCanvas {
 			canvas: this.canvas
         });
         this.renderer.autoClear = false;
-        this.renderer.shadowMapEnabled = true;
+        this.renderer.shadowMap.enabled = true;
 		this.renderer.setClearColor(0x000000,0);
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.camera = new THREE.PerspectiveCamera( 75, this.canvas.clientWidth / this.canvas.clientHeight, 0.1, 1000 );
         this.camera.position.z = 2;
         this.camera.position.y = 2;
         this.camera.lookAt ( 0, 0, 0 );
-        this.controls = new OrbitControls(this.camera, this.canvas);
-        this.controls.enableKeys = false;
+
+        this.limitFrame = -1;
+        this.useControl = true;
 
         //setupDepthRenderer
         this.sceneTarget = new THREE.WebGLRenderTarget( this.canvas.clientWidth, this.canvas.clientHeight );
@@ -283,6 +284,10 @@ export default class ThreeCanvas {
         this.depthTarget.depthBuffer = true;
         this.depthTarget.depthTexture = new THREE.DepthTexture();
         this.depthTarget.depthTexture.type = THREE.UnsignedShortType;
+
+
+
+        
         return this;
     }
 
@@ -324,7 +329,23 @@ export default class ThreeCanvas {
         this.player.currentObj().rotation.set( this.data.objRot.x, this.data.objRot.y, this.data.objRot.z );
     }
 
+    load(path, completeCallback){
+        let sandbox = this;
+        this.completedCallback = completeCallback;
+        var loader = new THREE.FileLoader();
+        loader.load( path, function ( text ) {
+            var dataJSON = JSON.parse(text);
+            sandbox.loadFromJSON(dataJSON.threeCanvas,sandbox.completedCallback);
+        } );
+    }
+
     loadFromJSON(json, completeCallback){
+
+        if (this.useControl){
+            this.controls = new OrbitControls(this.camera, this.canvas);
+            this.controls.enableKeys = false;
+        }
+
         this.data = new TData(this);
         this.data.loadFromJSON(json.data);
 
@@ -344,8 +365,10 @@ export default class ThreeCanvas {
 
         this.camera.position.set(json.cameraPos.x,json.cameraPos.y,json.cameraPos.z);
         this.camera.rotation.set(json.cameraRot.x,json.cameraRot.y,json.cameraRot.z);
-        this.controls.fromJSON(json.cameraController);
-        this.controls.reset();
+        if (this.useControl){
+            this.controls.fromJSON(json.cameraController);
+            this.controls.reset();
+        }
 
         this.updateData();
         this.inited = true;
@@ -353,6 +376,12 @@ export default class ThreeCanvas {
     }
 
     new(completeCallback){
+
+        if (this.useControl){
+            this.controls = new OrbitControls(this.camera, this.canvas);
+            this.controls.enableKeys = false;
+        }
+
         this.frame = 0;
         this.rendererInited = false;
         this.player = new Player(this);
@@ -360,14 +389,14 @@ export default class ThreeCanvas {
         this.completedCallback = completeCallback;
         this.data = new TData(this);
 
-        //background
-        this.data.renderPasses.push(new RenderPass(this,this.renderer,1,true,VIGNETTE_FRAG,DEFAULT_PASS_VERTEX,0));
-        //compose
-        this.data.renderPasses.push(new RenderPass(this,this.renderer,1,true,COMPOSE_FRAG,DEFAULT_PASS_VERTEX,1));
+        // //background
+        // this.data.renderPasses.push(new RenderPass(this,this.renderer,1,true,VIGNETTE_FRAG,DEFAULT_PASS_VERTEX,0));
+        // //compose
+        // this.data.renderPasses.push(new RenderPass(this,this.renderer,1,true,COMPOSE_FRAG,DEFAULT_PASS_VERTEX,1));
 
-        this.data.renderPasses[0].passName = 'Background';
-        this.data.renderPasses[1].passName = 'Compose';
-        this.data.renderPasses[0].renderToScreen = false;
+        // this.data.renderPasses[0].passName = 'Background';
+        // this.data.renderPasses[1].passName = 'Compose';
+        // this.data.renderPasses[0].renderToScreen = false;
 
 
         this.updateData();
@@ -379,6 +408,19 @@ export default class ThreeCanvas {
 		let sandbox = this;
 		this.prevTime = performance.now();
 		function RenderLoop() {
+
+            if (sandbox.rendererInited && sandbox.limitFrame > 0){
+                if (sandbox.frame % sandbox.limitFrame != 0){
+                    if (sandbox.useControl){
+                        sandbox.controls.update();
+                    }
+
+                    window.requestAnimationFrame(RenderLoop);
+                    sandbox.frame++;
+                    return;
+                }
+            }
+
             if (sandbox.inited){
 
                 //should not reset uniforms in every frame.
@@ -417,10 +459,10 @@ export default class ThreeCanvas {
                 }
 
                 for (var i = 0; i < sandbox.data.renderPasses.length; i++){
-                    sandbox.data.renderPasses[i].material.uniforms.iSceneTexture.value = sandbox.sceneTarget;
+                    sandbox.data.renderPasses[i].material.uniforms.iSceneTexture.value = sandbox.sceneTarget.texture;
                     if (i > 0){
                         var property = 'iPass' + (i - 1);
-                        sandbox.data.renderPasses[i].material.uniforms[property].value = sandbox.data.renderPasses[i - 1].renderTarget;
+                        sandbox.data.renderPasses[i].material.uniforms[property].value = sandbox.data.renderPasses[i - 1].renderTarget.texture;
                     }
                     sandbox.data.renderPasses[i].render();
                 }
@@ -440,7 +482,10 @@ export default class ThreeCanvas {
                     sandbox.player.currentObj().scale.set(sandbox.data.objScale.x * factor,sandbox.data.objScale.y * factor,sandbox.data.objScale.z * factor);
                 }
             }
-            sandbox.controls.update();
+            
+            if (sandbox.useControl){
+                sandbox.controls.update();
+            }
 			window.requestAnimationFrame(RenderLoop);
         }
 		RenderLoop();
@@ -474,12 +519,9 @@ export default class ThreeCanvas {
     
 	getContext(){
 		return this.renderer.getContext();
-	}
-
-    resize(w,h){
-        this.canvas.style.width = w +'px';
-        this.canvas.style.height = h +'px';
-        
+    }
+    
+    resizeUseCanvas(){
         this.camera.aspect = this.canvas.clientWidth / this.canvas.clientHeight;
         this.camera.updateProjectionMatrix();
 
@@ -493,6 +535,13 @@ export default class ThreeCanvas {
 
         
 		this.sceneTarget.setSize( this.canvas.clientWidth * dpr, this.canvas.clientHeight * dpr );
+    }
+
+    resize(w,h){
+        this.canvas.style.width = w +'px';
+        this.canvas.style.height = h +'px';
+
+        this.resizeUseCanvas();
     }
 
     curVertexShader(){
@@ -538,7 +587,7 @@ export default class ThreeCanvas {
             this.data.renderPasses[i].material.uniforms.iResolution.value.y = scope.canvas.clientHeight;
             this.data.renderPasses[i].material.uniforms.iCameraNear.value = scope.camera.near;
             this.data.renderPasses[i].material.uniforms.iCameraFar.value = scope.camera.far;
-            if (scope.player.dirLight != null){
+            if (scope.player.dirLight != null && scope.player.dirLight.position.x < 9999){
                 this.data.renderPasses[i].material.uniforms.iLightDirection.value = -scope.player.dirLight.position;
             }
             //set iSceneTexture later.

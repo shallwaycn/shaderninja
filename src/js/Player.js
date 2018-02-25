@@ -124,7 +124,7 @@ export class Player {
 			this.dirLight = new THREE.DirectionalLight( 0xffffff, 1.0 );
 			this.dirLight.position.set( 10, 10, 10 );
 			this.dirLight.target.position.set( 0, 0, 0 );
-			this.dirLight.shadowCameraVisible = true;
+			//this.dirLight.shadowCameraVisible = true;
 			this.dirLight.castShadow = true;
 			this.dirLight.name = "dirLight";
 			this.envScene.add( this.dirLight );
@@ -251,7 +251,11 @@ export class Player {
 		if (scope.dirLight != null){
 			this.dirLight.position.set( 10 * Math.sin(curTime), 10, 10 * Math.cos(curTime) );
 			this.dirLight.target.position.set( 0, 0, 0 );
-			scope.currentObj().material.uniforms.iLightDirection.value = -this.dirLight.position;
+
+			//ie bug?
+			if (scope.dirLight.position.x < 9999){
+				scope.currentObj().material.uniforms.iLightDirection.value = -this.dirLight.position;
+			}
 		}
 
 		// this.curMaterial().uniforms.iTime.value = curTime;
