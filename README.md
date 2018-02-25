@@ -1,19 +1,21 @@
 # [Shader Ninja](http://shallway.ninja/shaderninja)
 
-![](http://patriciogonzalezvivo.com/images/glslEditor/00.gif)
-
 Friendly 3D Game Shader Editor based on [three.js](https://github.com/mrdoob/three.js/) and [glslEditor](https://github.com/mrdoob/three.js/).
 
-It was designed to help shader programmers quickly iterate over shader development. With this tool you don't need to create a scene, material, shader, .cs files, etc. You only focus on the shader, just type in the editor and everthing will be live updated. 
+It was designed to help game programmers quickly iterate over shader development. With this tool you don't need to create a scene, material, shader, .cs files, etc. You only focus on the shader, just type in the editor and everthing will be live updated. 
+
+# [Try it online](http://shallway.ninja/shaderninja_editor)
+
+# [Examples](http://shallway.ninja/shaderninja)
 
 ## Some of the features
 - Real-time updating
 
-- Texture inspector
-
 - DepthTexture
 
 - Custom Render Pass
+
+- Texture inspector
 
 - Inline Color picker and 3D vector picker for '''vec3''
 
