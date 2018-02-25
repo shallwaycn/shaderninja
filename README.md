@@ -51,7 +51,7 @@ npm run start
 ## Author
 [Shallway](http://shallway.ninja)
 
-I'm not good at javascript, and this is my first javascript project(>_<). If you have any feedback, ideas or issues feel free to contact shallwaycn@gmail.com or create an Issue on Github.
+This is my first javascript project(>_<). If you have any feedback, ideas or issues feel free to contact shallwaycn@gmail.com or create an Issue on Github.
 
 
 
