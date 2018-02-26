@@ -330,12 +330,12 @@ export default class ThreeCanvas {
     }
 
     load(path, completeCallback){
-        let sandbox = this;
+        let scope = this;
         this.completedCallback = completeCallback;
         var loader = new THREE.FileLoader();
         loader.load( path, function ( text ) {
             var dataJSON = JSON.parse(text);
-            sandbox.loadFromJSON(dataJSON.threeCanvas,sandbox.completedCallback);
+            scope.loadFromJSON(dataJSON.threeCanvas,scope.completedCallback);
         } );
     }
 
@@ -405,86 +405,86 @@ export default class ThreeCanvas {
     }
 
     play() {
-		let sandbox = this;
+		let scope = this;
 		this.prevTime = performance.now();
 		function RenderLoop() {
 
-            if (sandbox.rendererInited && sandbox.limitFrame > 0){
-                if (sandbox.frame % sandbox.limitFrame != 0){
-                    if (sandbox.useControl){
-                        sandbox.controls.update();
+            if (scope.rendererInited && scope.limitFrame > 0){
+                if (scope.frame % scope.limitFrame != 0){
+                    if (scope.useControl){
+                        scope.controls.update();
                     }
 
                     window.requestAnimationFrame(RenderLoop);
-                    sandbox.frame++;
+                    scope.frame++;
                     return;
                 }
             }
 
-            if (sandbox.inited){
+            if (scope.inited){
 
                 //should not reset uniforms in every frame.
-                //sandbox.refreshUniforms(); 
+                //scope.refreshUniforms(); 
 
-                sandbox.player.updateUniforms();
+                scope.player.updateUniforms();
                 //render depth buffer
-                if (sandbox.player.envScene != null){
-                    sandbox.renderer.render( sandbox.player.envScene, sandbox.camera, sandbox.depthTarget, true);
-                    sandbox.renderer.render( sandbox.player.scene, sandbox.camera, sandbox.depthTarget);
+                if (scope.player.envScene != null){
+                    scope.renderer.render( scope.player.envScene, scope.camera, scope.depthTarget, true);
+                    scope.renderer.render( scope.player.scene, scope.camera, scope.depthTarget);
                 }
                 else{
-                    sandbox.renderer.render( sandbox.player.scene, sandbox.camera, sandbox.depthTarget, true);
+                    scope.renderer.render( scope.player.scene, scope.camera, scope.depthTarget, true);
                 }
 
                 //assign depth
-                sandbox.updateUniforms();
+                scope.updateUniforms();
                 //render the main scene.
-                if (sandbox.data.renderPasses.length == 0){
-                    if (sandbox.player.envScene != null){
-                        sandbox.renderer.render( sandbox.player.envScene, sandbox.camera,null,true);
-                        sandbox.renderer.render( sandbox.player.scene, sandbox.camera,null,false);
+                if (scope.data.renderPasses.length == 0){
+                    if (scope.player.envScene != null){
+                        scope.renderer.render( scope.player.envScene, scope.camera,null,true);
+                        scope.renderer.render( scope.player.scene, scope.camera,null,false);
                     }
                     else{
-                        sandbox.renderer.render( sandbox.player.scene, sandbox.camera,null,true);
+                        scope.renderer.render( scope.player.scene, scope.camera,null,true);
                     }
                 }
                 else{
-                    if (sandbox.player.envScene != null){
-                        sandbox.renderer.render( sandbox.player.envScene, sandbox.camera, sandbox.sceneTarget,true);
-                        sandbox.renderer.render( sandbox.player.scene, sandbox.camera, sandbox.sceneTarget);
+                    if (scope.player.envScene != null){
+                        scope.renderer.render( scope.player.envScene, scope.camera, scope.sceneTarget,true);
+                        scope.renderer.render( scope.player.scene, scope.camera, scope.sceneTarget);
                     }
                     else{
-                        sandbox.renderer.render( sandbox.player.scene, sandbox.camera, sandbox.sceneTarget,true);
+                        scope.renderer.render( scope.player.scene, scope.camera, scope.sceneTarget,true);
                     }
                 }
 
-                for (var i = 0; i < sandbox.data.renderPasses.length; i++){
-                    sandbox.data.renderPasses[i].material.uniforms.iSceneTexture.value = sandbox.sceneTarget.texture;
+                for (var i = 0; i < scope.data.renderPasses.length; i++){
+                    scope.data.renderPasses[i].material.uniforms.iSceneTexture.value = scope.sceneTarget.texture;
                     if (i > 0){
                         var property = 'iPass' + (i - 1);
-                        sandbox.data.renderPasses[i].material.uniforms[property].value = sandbox.data.renderPasses[i - 1].renderTarget.texture;
+                        scope.data.renderPasses[i].material.uniforms[property].value = scope.data.renderPasses[i - 1].renderTarget.texture;
                     }
-                    sandbox.data.renderPasses[i].render();
+                    scope.data.renderPasses[i].render();
                 }
 
-                sandbox.frame++;
-                if (sandbox.frame > 1 && !sandbox.rendererInited){
-                    if (sandbox.completedCallback != null && sandbox.completedCallback != undefined){
-                        sandbox.completedCallback();
+                scope.frame++;
+                if (scope.frame > 1 && !scope.rendererInited){
+                    if (scope.completedCallback != null && scope.completedCallback != undefined){
+                        scope.completedCallback();
                     }
-                    //sandbox.refreshUniforms();
-                    sandbox.rendererInited = true;
+                    //scope.refreshUniforms();
+                    scope.rendererInited = true;
                 }
 
-                if (sandbox.data.animateScale){
+                if (scope.data.animateScale){
                     var curTime = performance.now() / 1000.0;
                     var factor = Math.sin(curTime * 1.0)*0.5 + 0.6;
-                    sandbox.player.currentObj().scale.set(sandbox.data.objScale.x * factor,sandbox.data.objScale.y * factor,sandbox.data.objScale.z * factor);
+                    scope.player.currentObj().scale.set(scope.data.objScale.x * factor,scope.data.objScale.y * factor,scope.data.objScale.z * factor);
                 }
             }
             
-            if (sandbox.useControl){
-                sandbox.controls.update();
+            if (scope.useControl){
+                scope.controls.update();
             }
 			window.requestAnimationFrame(RenderLoop);
         }

@@ -1,6 +1,6 @@
 import 'document-register-element';
 import ThreeCanvas from './ThreeCanvas';
-import { initEditor, foldCode } from './core/Editor';
+import { initEditor, foldCode } from './CodeEditor';
 
 import ErrorsDisplay from './ui/ErrorsDisplay';
 import Helpers from './ui/Helpers';
@@ -64,37 +64,37 @@ export default class ShaderNinja {
     }
 
     new(finishedCB) {
-        let sandbox = this;
+        let scope = this;
         this.threeCanvas.new(() => {
-            sandbox.data.fragText = sandbox.threeCanvas.curFragSahder();
-            sandbox.data.vertText = sandbox.threeCanvas.curVertexShader();
-            sandbox.initShaderEditor(sandbox.inited);
-            sandbox.inited = true;
+            scope.data.fragText = scope.threeCanvas.curFragSahder();
+            scope.data.vertText = scope.threeCanvas.curVertexShader();
+            scope.initShaderEditor(scope.inited);
+            scope.inited = true;
             if (finishedCB != null) {
                 finishedCB();
             }
-            if (sandbox.uiSettings != undefined) {
-                sandbox.uiSettings.update();
+            if (scope.uiSettings != undefined) {
+                scope.uiSettings.update();
             }
-            sandbox.updateData();
+            scope.updateData();
         });
     }
 
     load(path,finishedCB){
-        let sandbox = this;
+        let scope = this;
         var loader = new THREE.FileLoader();
         loader.load( path, function ( text ) {
             var dataJSON = JSON.parse(text);
-            sandbox.fromJSON(dataJSON,finishedCB);
+            scope.fromJSON(dataJSON,finishedCB);
         } );
     }
 
     loadFromInput(file, finishedCB) {
         var reader = new FileReader();
-        let sandbox = this;
+        let scope = this;
         reader.addEventListener('load', function (event) {
             var dataJSON = JSON.parse(event.target.result);
-            sandbox.fromJSON(dataJSON, finishedCB)
+            scope.fromJSON(dataJSON, finishedCB)
         }, false);
         reader.readAsText(file);
     }
