@@ -1,0 +1,222 @@
+{
+	"threeCanvas": {
+		"data": {
+			"textures": [
+				{
+					"metadata": {
+						"version": 4.5,
+						"type": "Texture",
+						"generator": "Texture.toJSON"
+					},
+					"uuid": "F905283B-B7B7-4D75-BEFE-7D7878BD53B6",
+					"name": "",
+					"mapping": 300,
+					"repeat": [1,1],
+					"offset": [0,0],
+					"center": [0,0],
+					"rotation": 0,
+					"wrap": [1001,1001],
+					"minFilter": 1008,
+					"magFilter": 1006,
+					"anisotropy": 1,
+					"flipY": true,
+					"image": "15D6E841-D6AC-40FF-B2F7-6EC43E109CA5"
+				},
+				null],
+			"images": {
+				"15D6E841-D6AC-40FF-B2F7-6EC43E109CA5": {
+					"uuid": "15D6E841-D6AC-40FF-B2F7-6EC43E109CA5",
+					"url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAACACAYAAADZLkMAAAAFJklEQVRYR91XPYgdVRQ+5/2wWRIlBATTiQhikyCitQu6iEEbBa21sNHC2kbR0kokFoKNhUTQJkVAUHArGyWILERFgkZEUIK4O2/fm58j3/m59868ecum9S2zM2/ud8/Pd8937n1cyy0hYiKakNCE7Bkf8XtHvJKfhdMgQBkoPoFXckMwwDR1K7gHEHciruW3sEsx01zGRXD3l5j/uDqPJd+4kb/VkqRAc9DmQkhBfYBZ4JQlAXQ7xbTmx19wKwcOCn7iXsTUSrXZktgEbuVwAyi/5mwpXuLeFtlqdoipTTx1+gyucAcBunbgyWbnqyFWWzbBGe+IexbgrvFJHdbuFycTLuICoHOgWvquAMGtASwEu/NK9gRf8JdjgpWCgiO54gscA9lCVAYfygdevlbCuXyLZTmUy1qZRFPql3EBquQjB5XViHK2gtH/C/nEs4tYwoK51r8j+VQZB/02NxQzIyK7eCl7YnrDCygFsc2TcjCJG/lTGAABAIOIx1ypbdYqWAqpPPvCTLmxFt1SrOhhKTLqS90sqYMgMosy+oFXJoINayUodNf9a72As6XQXCyyK7hcs0igWBb0J2sUMWgTbGHs4pU2sbLV9DuK5guZ58XM6s1FJ8Rth14AxkoyS6kLhHBT8rrNvOOFeyOYa9n3dpgXOMeYAv9hUHTZrfHFsHS9UMtYS5yg6L4S09pSL6EVkV54ZxrkSj4Uopq6NGCALPOG+EDeEnuxIqaaMCF3GS/pA3lFxYkukqUdrcjuXN1+3PQc7bvse9FNq/2L0a7dkI8U/Z+r7y8ICVTVufS9pxXWHdS6FQemncOXPrtzCym2bJ0VpP49lnL/8Xdc7V+wUhnr5uoNFPz6qIpz7TPB3IhptWM2hltvUNAKluX5ATGRO0I1JB/ImyJaAQuvhKiAQlIL+UyEjoiooo4qIn3Oi6zbxpFcTRT3EzQtam3W8m06PPRrO9ypOH9MoKjpIR3cqIJLDoxA++/ZNfL7IKbYhAyggTd6wrABYyb2PZS0tW0/q8SuBEDtwBBEjRb9tcQOaRJaUafkAmQS44W8L6LkARBqOSK8s5VosSyvCfsskxUGaqK2Ieo6oq4lrpZPCjUdUdsR1S1RsySqO6IVniFuKPinR4RafEGSLVHdWDh41ncAffGAcQZrSFLl70cFZQbu3rs3NigjXqkpCl0mxIt3zvkabCxy4sXrd9neEue+wepCMFy9fMa2O9RNqQd/lgkR//PCad/y1wUT4uA/nt1OZzq0g1xqbn3CxLeePjUWce94wDd3HYR+P+JRY72xszVuqdArX39sbqBpHBgKc94i+JuLDnIaSo+ToGbvoZlamvRI6vPGXz44G+spySAs8LX7zZLF1Y8ncfb5feOWypT54/NT/b7G0TS/48v3TKNb9qgs8+B3z01T4LrD+ics6x769lnuucMhondKwHK9cXcfNKw9WOdXz7BM3HZJejxrE3vptFky1tdj0sxf3M4gBZarH9+fOzUOCnc66ZmtDCrTLgnmSwraWHd2Lnhq61iEZsK7Dlr/BVVkeiJQ6W7MmmZ3aa5btH4i/CE4gawZ22c4iXdHLA3LhZ+Ym5fN3elOKejVbhlbV1gKULTLMhHe8ZgiK3Rl7AvakP0kxQ/PLGb7oZaPV7pH+dLz+WlObEhmsMxn7Qg2SmIM8Dano8xaggk0LyyN0aD1NM+Hok0YYvxiidFNRczT4wvcyvdEoA1nsF58aEPH6cnc3RHoeHmexN2Gyu0H/r8G/Qfx7976DV/btQAAAABJRU5ErkJggg=="
+				}
+			},
+			"editMode": 1,
+			"blending": 0,
+			"side": 0,
+			"transparent": false,
+			"objScale": {
+				"x": 1,
+				"y": 1,
+				"z": 1
+			},
+			"objPos": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"objRot": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"objectType": 0,
+			"flatShading": false,
+			"wireframe": false,
+			"depthWrite": true,
+			"depthTest": false,
+			"passDatas": [
+				{
+					"downRes": 1,
+					"renderToScreen": false,
+					"frag": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform sampler2D iPass0;\r\nuniform sampler2D iPass1;\r\n//header-end\r\nvarying vec2 fUV;\n#define VIG_REDUCTION_POWER 5.5\n#define VIG_BOOST 4.1\n\nfloat random(vec3 scale,float seed){return fract(sin(dot(gl_FragCoord.xyz+seed,scale))*43758.5453+seed);}\n\nvoid main() {\n\n\tvec3 color = vec3( 34. / 255. );\n\tvec2 center = iResolution * 0.5;\n\tfloat vignette = distance( center, gl_FragCoord.xy ) / iResolution.x;\n\tvignette = VIG_BOOST - vignette * VIG_REDUCTION_POWER;\n\n\tfloat n = 0.008 * ( .5 - random( vec3( 1. ), length( gl_FragCoord ) ) );\n\n\tgl_FragColor = vec4( color * vec3( vignette ) + vec3( n ), 1. );\n\n}\n",
+					"vertex": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform sampler2D iPass0;\r\nuniform sampler2D iPass1;\r\n//header-end\r\nvarying vec2 fUV;\nvoid main() {\n    fUV = uv;\n    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n}\n",
+					"passName": "Name"
+				},
+				{
+					"downRes": 1,
+					"renderToScreen": true,
+					"frag": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform sampler2D iPass0;\r\nuniform sampler2D iPass1;\r\n//header-end\r\nvarying vec2 fUV;\nvoid main() {\n    vec4 texel = texture2D( iSceneTexture, fUV );\n    vec4 back = texture2D( iPass0, fUV );\n    gl_FragColor = mix(back,texel,texel.a);\n}\n",
+					"vertex": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform sampler2D iPass0;\r\nuniform sampler2D iPass1;\r\n//header-end\r\nvarying vec2 fUV;\nvoid main() {\n    fUV = uv;\n    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n}\n",
+					"passName": "Name"
+				}],
+			"showScene": false,
+			"useLight": false,
+			"animateScale": false
+		},
+		"player": {
+			"metadata": {},
+			"scene": {
+				"metadata": {
+					"version": 4.5,
+					"type": "Object",
+					"generator": "Object3D.toJSON"
+				},
+				"geometries": [
+					{
+						"uuid": "DAF9FC29-C64D-4D01-9972-58CAAAB9BD9E",
+						"type": "SphereGeometry",
+						"radius": 1,
+						"widthSegments": 50,
+						"heightSegments": 50
+					}],
+				"materials": [
+					{
+						"uuid": "B3811F24-3BB4-48E3-A5E3-2975CF0F2177",
+						"type": "ShaderMaterial",
+						"blending": 0,
+						"depthFunc": 3,
+						"depthTest": false,
+						"depthWrite": true,
+						"uniforms": {
+							"iTime": {
+								"value": 1699.05058
+							},
+							"iResolution": {
+								"value": {
+									"x": 647,
+									"y": 499
+								}
+							},
+							"iSceneTexture": {
+								"value": {
+									"metadata": {
+										"version": 4.5,
+										"type": "Texture",
+										"generator": "Texture.toJSON"
+									},
+									"uuid": "ECED4DDC-859C-4E07-8E0F-07553E8C696D",
+									"name": "",
+									"mapping": 300,
+									"repeat": [1,1],
+									"offset": [0,0],
+									"center": [0,0],
+									"rotation": 0,
+									"wrap": [1001,1001],
+									"minFilter": 1003,
+									"magFilter": 1003,
+									"anisotropy": 1,
+									"flipY": true
+								}
+							},
+							"iDepthTexture": {
+								"value": null
+							},
+							"iCameraNear": {
+								"value": 0.1
+							},
+							"iCameraFar": {
+								"value": 1000
+							},
+							"iLightDirection": {
+								"value": {
+									"x": 0,
+									"y": 0,
+									"z": 0
+								}
+							},
+							"iTexture0": {
+								"value": null
+							},
+							"iTexture1": {
+								"value": null
+							},
+							"iPass0": {
+								"value": {
+									"metadata": {
+										"version": 4.5,
+										"type": "Texture",
+										"generator": "Texture.toJSON"
+									},
+									"uuid": "0FF8AD4A-FA42-4AF9-8AE6-31B4484ED89C",
+									"name": "",
+									"mapping": 300,
+									"repeat": [1,1],
+									"offset": [0,0],
+									"center": [0,0],
+									"rotation": 0,
+									"wrap": [1001,1001],
+									"minFilter": 1006,
+									"magFilter": 1006,
+									"anisotropy": 1,
+									"flipY": true
+								}
+							},
+							"iPass1": {
+								"value": null
+							}
+						},
+						"vertexShader": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform sampler2D iPass0;\r\n//header-end\r\n//\n// GLSL textureless classic 3D noise \"cnoise\",\n// with an RSL-style periodic variant \"pnoise\".\n// Author:  Stefan Gustavson (stefan.gustavson@liu.se)\n// Version: 2011-10-11\n//\n// Many thanks to Ian McEwan of Ashima Arts for the\n// ideas for permutation and gradient selection.\n//\n// Copyright (c) 2011 Stefan Gustavson. All rights reserved.\n// Distributed under the MIT license. See LICENSE file.\n// https://github.com/ashima/webgl-noise\n//\nvec3 mod289(vec3 x)\n{\n  return x - floor(x * (1.0 / 289.0)) * 289.0;\n}\nvec4 mod289(vec4 x)\n{\n  return x - floor(x * (1.0 / 289.0)) * 289.0;\n}\nvec4 permute(vec4 x)\n{\n  return mod289(((x*34.0)+1.0)*x);\n}\nvec4 taylorInvSqrt(vec4 r)\n{\n  return 1.79284291400159 - 0.85373472095314 * r;\n}\nvec3 fade(vec3 t) {\n  return t*t*t*(t*(t*6.0-15.0)+10.0);\n}\n// Classic Perlin noise\nfloat cnoise(vec3 P)\n{\n  vec3 Pi0 = floor(P); // Integer part for indexing\n  vec3 Pi1 = Pi0 + vec3(1.0); // Integer part + 1\n  Pi0 = mod289(Pi0);\n  Pi1 = mod289(Pi1);\n  vec3 Pf0 = fract(P); // Fractional part for interpolation\n  vec3 Pf1 = Pf0 - vec3(1.0); // Fractional part - 1.0\n  vec4 ix = vec4(Pi0.x, Pi1.x, Pi0.x, Pi1.x);\n  vec4 iy = vec4(Pi0.yy, Pi1.yy);\n  vec4 iz0 = Pi0.zzzz;\n  vec4 iz1 = Pi1.zzzz;\n  vec4 ixy = permute(permute(ix) + iy);\n  vec4 ixy0 = permute(ixy + iz0);\n  vec4 ixy1 = permute(ixy + iz1);\n  vec4 gx0 = ixy0 * (1.0 / 7.0);\n  vec4 gy0 = fract(floor(gx0) * (1.0 / 7.0)) - 0.5;\n  gx0 = fract(gx0);\n  vec4 gz0 = vec4(0.5) - abs(gx0) - abs(gy0);\n  vec4 sz0 = step(gz0, vec4(0.0));\n  gx0 -= sz0 * (step(0.0, gx0) - 0.5);\n  gy0 -= sz0 * (step(0.0, gy0) - 0.5);\n  vec4 gx1 = ixy1 * (1.0 / 7.0);\n  vec4 gy1 = fract(floor(gx1) * (1.0 / 7.0)) - 0.5;\n  gx1 = fract(gx1);\n  vec4 gz1 = vec4(0.5) - abs(gx1) - abs(gy1);\n  vec4 sz1 = step(gz1, vec4(0.0));\n  gx1 -= sz1 * (step(0.0, gx1) - 0.5);\n  gy1 -= sz1 * (step(0.0, gy1) - 0.5);\n  vec3 g000 = vec3(gx0.x,gy0.x,gz0.x);\n  vec3 g100 = vec3(gx0.y,gy0.y,gz0.y);\n  vec3 g010 = vec3(gx0.z,gy0.z,gz0.z);\n  vec3 g110 = vec3(gx0.w,gy0.w,gz0.w);\n  vec3 g001 = vec3(gx1.x,gy1.x,gz1.x);\n  vec3 g101 = vec3(gx1.y,gy1.y,gz1.y);\n  vec3 g011 = vec3(gx1.z,gy1.z,gz1.z);\n  vec3 g111 = vec3(gx1.w,gy1.w,gz1.w);\n  vec4 norm0 = taylorInvSqrt(vec4(dot(g000, g000), dot(g010, g010), dot(g100, g100), dot(g110, g110)));\n  g000 *= norm0.x;\n  g010 *= norm0.y;\n  g100 *= norm0.z;\n  g110 *= norm0.w;\n  vec4 norm1 = taylorInvSqrt(vec4(dot(g001, g001), dot(g011, g011), dot(g101, g101), dot(g111, g111)));\n  g001 *= norm1.x;\n  g011 *= norm1.y;\n  g101 *= norm1.z;\n  g111 *= norm1.w;\n  float n000 = dot(g000, Pf0);\n  float n100 = dot(g100, vec3(Pf1.x, Pf0.yz));\n  float n010 = dot(g010, vec3(Pf0.x, Pf1.y, Pf0.z));\n  float n110 = dot(g110, vec3(Pf1.xy, Pf0.z));\n  float n001 = dot(g001, vec3(Pf0.xy, Pf1.z));\n  float n101 = dot(g101, vec3(Pf1.x, Pf0.y, Pf1.z));\n  float n011 = dot(g011, vec3(Pf0.x, Pf1.yz));\n  float n111 = dot(g111, Pf1);\n  vec3 fade_xyz = fade(Pf0);\n  vec4 n_z = mix(vec4(n000, n100, n010, n110), vec4(n001, n101, n011, n111), fade_xyz.z);\n  vec2 n_yz = mix(n_z.xy, n_z.zw, fade_xyz.y);\n  float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x);\n  return 2.2 * n_xyz;\n}\n// Classic Perlin noise, periodic variant\nfloat pnoise(vec3 P, vec3 rep)\n{\n  vec3 Pi0 = mod(floor(P), rep); // Integer part, modulo period\n  vec3 Pi1 = mod(Pi0 + vec3(1.0), rep); // Integer part + 1, mod period\n  Pi0 = mod289(Pi0);\n  Pi1 = mod289(Pi1);\n  vec3 Pf0 = fract(P); // Fractional part for interpolation\n  vec3 Pf1 = Pf0 - vec3(1.0); // Fractional part - 1.0\n  vec4 ix = vec4(Pi0.x, Pi1.x, Pi0.x, Pi1.x);\n  vec4 iy = vec4(Pi0.yy, Pi1.yy);\n  vec4 iz0 = Pi0.zzzz;\n  vec4 iz1 = Pi1.zzzz;\n  vec4 ixy = permute(permute(ix) + iy);\n  vec4 ixy0 = permute(ixy + iz0);\n  vec4 ixy1 = permute(ixy + iz1);\n  vec4 gx0 = ixy0 * (1.0 / 7.0);\n  vec4 gy0 = fract(floor(gx0) * (1.0 / 7.0)) - 0.5;\n  gx0 = fract(gx0);\n  vec4 gz0 = vec4(0.5) - abs(gx0) - abs(gy0);\n  vec4 sz0 = step(gz0, vec4(0.0));\n  gx0 -= sz0 * (step(0.0, gx0) - 0.5);\n  gy0 -= sz0 * (step(0.0, gy0) - 0.5);\n  vec4 gx1 = ixy1 * (1.0 / 7.0);\n  vec4 gy1 = fract(floor(gx1) * (1.0 / 7.0)) - 0.5;\n  gx1 = fract(gx1);\n  vec4 gz1 = vec4(0.5) - abs(gx1) - abs(gy1);\n  vec4 sz1 = step(gz1, vec4(0.0));\n  gx1 -= sz1 * (step(0.0, gx1) - 0.5);\n  gy1 -= sz1 * (step(0.0, gy1) - 0.5);\n  vec3 g000 = vec3(gx0.x,gy0.x,gz0.x);\n  vec3 g100 = vec3(gx0.y,gy0.y,gz0.y);\n  vec3 g010 = vec3(gx0.z,gy0.z,gz0.z);\n  vec3 g110 = vec3(gx0.w,gy0.w,gz0.w);\n  vec3 g001 = vec3(gx1.x,gy1.x,gz1.x);\n  vec3 g101 = vec3(gx1.y,gy1.y,gz1.y);\n  vec3 g011 = vec3(gx1.z,gy1.z,gz1.z);\n  vec3 g111 = vec3(gx1.w,gy1.w,gz1.w);\n  vec4 norm0 = taylorInvSqrt(vec4(dot(g000, g000), dot(g010, g010), dot(g100, g100), dot(g110, g110)));\n  g000 *= norm0.x;\n  g010 *= norm0.y;\n  g100 *= norm0.z;\n  g110 *= norm0.w;\n  vec4 norm1 = taylorInvSqrt(vec4(dot(g001, g001), dot(g011, g011), dot(g101, g101), dot(g111, g111)));\n  g001 *= norm1.x;\n  g011 *= norm1.y;\n  g101 *= norm1.z;\n  g111 *= norm1.w;\n  float n000 = dot(g000, Pf0);\n  float n100 = dot(g100, vec3(Pf1.x, Pf0.yz));\n  float n010 = dot(g010, vec3(Pf0.x, Pf1.y, Pf0.z));\n  float n110 = dot(g110, vec3(Pf1.xy, Pf0.z));\n  float n001 = dot(g001, vec3(Pf0.xy, Pf1.z));\n  float n101 = dot(g101, vec3(Pf1.x, Pf0.y, Pf1.z));\n  float n011 = dot(g011, vec3(Pf0.x, Pf1.yz));\n  float n111 = dot(g111, Pf1);\n  vec3 fade_xyz = fade(Pf0);\n  vec4 n_z = mix(vec4(n000, n100, n010, n110), vec4(n001, n101, n011, n111), fade_xyz.z);\n  vec2 n_yz = mix(n_z.xy, n_z.zw, fade_xyz.y);\n  float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x);\n  return 2.2 * n_xyz;\n}\n// Include the Ashima code here!\n\nvarying float fNoise;\nvarying vec3 fPosition;\nvarying vec2 fUV;\nfloat turbulence( vec3 p ) {\n  float w = 100.0;\n  float t = -.5;\n  for (float f = 1.0 ; f <= 10.0 ; f++ ){\n    float power = pow( 2.0, f );\n    t += abs( pnoise( vec3( power * p ), vec3( 10.0, 10.0, 10.0 ) ) / power );\n  }\n  return t;\n}\nvoid main() {\n  fUV = uv;\n  fNoise = 10.0 *  -.10 * turbulence( .5 * normal + iTime*0.2 );\n  float b = 0.25 * pnoise( 0.05 * position + vec3( 2.0 * iTime*0.2 ), vec3( 100.0 ) );\n  float displacement = - 0.5 * fNoise + b;\n  vec3 newPosition = position + normal * displacement;\n  gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );\n}",
+						"fragmentShader": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform sampler2D iPass0;\r\n//header-end\r\nvarying vec2 fUV;\nvarying float fNoise;\nuniform sampler2D tExplosion;\nfloat random( vec3 scale, float seed ){\n  return fract( sin( dot( gl_FragCoord.xyz + seed, scale ) ) * 43758.5453 + seed ) ;\n}\nvoid main() {\n  float r = .01 * random( vec3( 12.9898, 78.233, 151.7182 ), 0.0 );\n  vec2 tPos = vec2( 0, 1.3 * fNoise + r );\n  vec4 color = texture2D( iTexture0, tPos );\n  gl_FragColor = vec4( color.rgb, 1.0 );\n}\n"
+					}],
+				"object": {
+					"uuid": "4ABC8AC3-8A25-47D4-B07F-F6C99805E187",
+					"type": "Scene",
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+					"children": [
+						{
+							"uuid": "59FB1973-BE84-4114-A6F1-28D542957B22",
+							"type": "Mesh",
+							"name": "MeshObj",
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+							"geometry": "DAF9FC29-C64D-4D01-9972-58CAAAB9BD9E",
+							"material": "B3811F24-3BB4-48E3-A5E3-2975CF0F2177"
+						}]
+				}
+			},
+			"envScene": null,
+			"frag": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform sampler2D iPass0;\r\n//header-end\r\nvarying vec2 fUV;\nvarying float fNoise;\nuniform sampler2D tExplosion;\nfloat random( vec3 scale, float seed ){\n  return fract( sin( dot( gl_FragCoord.xyz + seed, scale ) ) * 43758.5453 + seed ) ;\n}\nvoid main() {\n  float r = .01 * random( vec3( 12.9898, 78.233, 151.7182 ), 0.0 );\n  vec2 tPos = vec2( 0, 1.3 * fNoise + r );\n  vec4 color = texture2D( iTexture0, tPos );\n  gl_FragColor = vec4( color.rgb, 1.0 );\n}\n",
+			"vert": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform sampler2D iPass0;\r\n//header-end\r\n//\n// GLSL textureless classic 3D noise \"cnoise\",\n// with an RSL-style periodic variant \"pnoise\".\n// Author:  Stefan Gustavson (stefan.gustavson@liu.se)\n// Version: 2011-10-11\n//\n// Many thanks to Ian McEwan of Ashima Arts for the\n// ideas for permutation and gradient selection.\n//\n// Copyright (c) 2011 Stefan Gustavson. All rights reserved.\n// Distributed under the MIT license. See LICENSE file.\n// https://github.com/ashima/webgl-noise\n//\nvec3 mod289(vec3 x)\n{\n  return x - floor(x * (1.0 / 289.0)) * 289.0;\n}\nvec4 mod289(vec4 x)\n{\n  return x - floor(x * (1.0 / 289.0)) * 289.0;\n}\nvec4 permute(vec4 x)\n{\n  return mod289(((x*34.0)+1.0)*x);\n}\nvec4 taylorInvSqrt(vec4 r)\n{\n  return 1.79284291400159 - 0.85373472095314 * r;\n}\nvec3 fade(vec3 t) {\n  return t*t*t*(t*(t*6.0-15.0)+10.0);\n}\n// Classic Perlin noise\nfloat cnoise(vec3 P)\n{\n  vec3 Pi0 = floor(P); // Integer part for indexing\n  vec3 Pi1 = Pi0 + vec3(1.0); // Integer part + 1\n  Pi0 = mod289(Pi0);\n  Pi1 = mod289(Pi1);\n  vec3 Pf0 = fract(P); // Fractional part for interpolation\n  vec3 Pf1 = Pf0 - vec3(1.0); // Fractional part - 1.0\n  vec4 ix = vec4(Pi0.x, Pi1.x, Pi0.x, Pi1.x);\n  vec4 iy = vec4(Pi0.yy, Pi1.yy);\n  vec4 iz0 = Pi0.zzzz;\n  vec4 iz1 = Pi1.zzzz;\n  vec4 ixy = permute(permute(ix) + iy);\n  vec4 ixy0 = permute(ixy + iz0);\n  vec4 ixy1 = permute(ixy + iz1);\n  vec4 gx0 = ixy0 * (1.0 / 7.0);\n  vec4 gy0 = fract(floor(gx0) * (1.0 / 7.0)) - 0.5;\n  gx0 = fract(gx0);\n  vec4 gz0 = vec4(0.5) - abs(gx0) - abs(gy0);\n  vec4 sz0 = step(gz0, vec4(0.0));\n  gx0 -= sz0 * (step(0.0, gx0) - 0.5);\n  gy0 -= sz0 * (step(0.0, gy0) - 0.5);\n  vec4 gx1 = ixy1 * (1.0 / 7.0);\n  vec4 gy1 = fract(floor(gx1) * (1.0 / 7.0)) - 0.5;\n  gx1 = fract(gx1);\n  vec4 gz1 = vec4(0.5) - abs(gx1) - abs(gy1);\n  vec4 sz1 = step(gz1, vec4(0.0));\n  gx1 -= sz1 * (step(0.0, gx1) - 0.5);\n  gy1 -= sz1 * (step(0.0, gy1) - 0.5);\n  vec3 g000 = vec3(gx0.x,gy0.x,gz0.x);\n  vec3 g100 = vec3(gx0.y,gy0.y,gz0.y);\n  vec3 g010 = vec3(gx0.z,gy0.z,gz0.z);\n  vec3 g110 = vec3(gx0.w,gy0.w,gz0.w);\n  vec3 g001 = vec3(gx1.x,gy1.x,gz1.x);\n  vec3 g101 = vec3(gx1.y,gy1.y,gz1.y);\n  vec3 g011 = vec3(gx1.z,gy1.z,gz1.z);\n  vec3 g111 = vec3(gx1.w,gy1.w,gz1.w);\n  vec4 norm0 = taylorInvSqrt(vec4(dot(g000, g000), dot(g010, g010), dot(g100, g100), dot(g110, g110)));\n  g000 *= norm0.x;\n  g010 *= norm0.y;\n  g100 *= norm0.z;\n  g110 *= norm0.w;\n  vec4 norm1 = taylorInvSqrt(vec4(dot(g001, g001), dot(g011, g011), dot(g101, g101), dot(g111, g111)));\n  g001 *= norm1.x;\n  g011 *= norm1.y;\n  g101 *= norm1.z;\n  g111 *= norm1.w;\n  float n000 = dot(g000, Pf0);\n  float n100 = dot(g100, vec3(Pf1.x, Pf0.yz));\n  float n010 = dot(g010, vec3(Pf0.x, Pf1.y, Pf0.z));\n  float n110 = dot(g110, vec3(Pf1.xy, Pf0.z));\n  float n001 = dot(g001, vec3(Pf0.xy, Pf1.z));\n  float n101 = dot(g101, vec3(Pf1.x, Pf0.y, Pf1.z));\n  float n011 = dot(g011, vec3(Pf0.x, Pf1.yz));\n  float n111 = dot(g111, Pf1);\n  vec3 fade_xyz = fade(Pf0);\n  vec4 n_z = mix(vec4(n000, n100, n010, n110), vec4(n001, n101, n011, n111), fade_xyz.z);\n  vec2 n_yz = mix(n_z.xy, n_z.zw, fade_xyz.y);\n  float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x);\n  return 2.2 * n_xyz;\n}\n// Classic Perlin noise, periodic variant\nfloat pnoise(vec3 P, vec3 rep)\n{\n  vec3 Pi0 = mod(floor(P), rep); // Integer part, modulo period\n  vec3 Pi1 = mod(Pi0 + vec3(1.0), rep); // Integer part + 1, mod period\n  Pi0 = mod289(Pi0);\n  Pi1 = mod289(Pi1);\n  vec3 Pf0 = fract(P); // Fractional part for interpolation\n  vec3 Pf1 = Pf0 - vec3(1.0); // Fractional part - 1.0\n  vec4 ix = vec4(Pi0.x, Pi1.x, Pi0.x, Pi1.x);\n  vec4 iy = vec4(Pi0.yy, Pi1.yy);\n  vec4 iz0 = Pi0.zzzz;\n  vec4 iz1 = Pi1.zzzz;\n  vec4 ixy = permute(permute(ix) + iy);\n  vec4 ixy0 = permute(ixy + iz0);\n  vec4 ixy1 = permute(ixy + iz1);\n  vec4 gx0 = ixy0 * (1.0 / 7.0);\n  vec4 gy0 = fract(floor(gx0) * (1.0 / 7.0)) - 0.5;\n  gx0 = fract(gx0);\n  vec4 gz0 = vec4(0.5) - abs(gx0) - abs(gy0);\n  vec4 sz0 = step(gz0, vec4(0.0));\n  gx0 -= sz0 * (step(0.0, gx0) - 0.5);\n  gy0 -= sz0 * (step(0.0, gy0) - 0.5);\n  vec4 gx1 = ixy1 * (1.0 / 7.0);\n  vec4 gy1 = fract(floor(gx1) * (1.0 / 7.0)) - 0.5;\n  gx1 = fract(gx1);\n  vec4 gz1 = vec4(0.5) - abs(gx1) - abs(gy1);\n  vec4 sz1 = step(gz1, vec4(0.0));\n  gx1 -= sz1 * (step(0.0, gx1) - 0.5);\n  gy1 -= sz1 * (step(0.0, gy1) - 0.5);\n  vec3 g000 = vec3(gx0.x,gy0.x,gz0.x);\n  vec3 g100 = vec3(gx0.y,gy0.y,gz0.y);\n  vec3 g010 = vec3(gx0.z,gy0.z,gz0.z);\n  vec3 g110 = vec3(gx0.w,gy0.w,gz0.w);\n  vec3 g001 = vec3(gx1.x,gy1.x,gz1.x);\n  vec3 g101 = vec3(gx1.y,gy1.y,gz1.y);\n  vec3 g011 = vec3(gx1.z,gy1.z,gz1.z);\n  vec3 g111 = vec3(gx1.w,gy1.w,gz1.w);\n  vec4 norm0 = taylorInvSqrt(vec4(dot(g000, g000), dot(g010, g010), dot(g100, g100), dot(g110, g110)));\n  g000 *= norm0.x;\n  g010 *= norm0.y;\n  g100 *= norm0.z;\n  g110 *= norm0.w;\n  vec4 norm1 = taylorInvSqrt(vec4(dot(g001, g001), dot(g011, g011), dot(g101, g101), dot(g111, g111)));\n  g001 *= norm1.x;\n  g011 *= norm1.y;\n  g101 *= norm1.z;\n  g111 *= norm1.w;\n  float n000 = dot(g000, Pf0);\n  float n100 = dot(g100, vec3(Pf1.x, Pf0.yz));\n  float n010 = dot(g010, vec3(Pf0.x, Pf1.y, Pf0.z));\n  float n110 = dot(g110, vec3(Pf1.xy, Pf0.z));\n  float n001 = dot(g001, vec3(Pf0.xy, Pf1.z));\n  float n101 = dot(g101, vec3(Pf1.x, Pf0.y, Pf1.z));\n  float n011 = dot(g011, vec3(Pf0.x, Pf1.yz));\n  float n111 = dot(g111, Pf1);\n  vec3 fade_xyz = fade(Pf0);\n  vec4 n_z = mix(vec4(n000, n100, n010, n110), vec4(n001, n101, n011, n111), fade_xyz.z);\n  vec2 n_yz = mix(n_z.xy, n_z.zw, fade_xyz.y);\n  float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x);\n  return 2.2 * n_xyz;\n}\n// Include the Ashima code here!\n\nvarying float fNoise;\nvarying vec3 fPosition;\nvarying vec2 fUV;\nfloat turbulence( vec3 p ) {\n  float w = 100.0;\n  float t = -.5;\n  for (float f = 1.0 ; f <= 10.0 ; f++ ){\n    float power = pow( 2.0, f );\n    t += abs( pnoise( vec3( power * p ), vec3( 10.0, 10.0, 10.0 ) ) / power );\n  }\n  return t;\n}\nvoid main() {\n  fUV = uv;\n  fNoise = 10.0 *  -.10 * turbulence( .5 * normal + iTime*0.2 );\n  float b = 0.25 * pnoise( 0.05 * position + vec3( 2.0 * iTime*0.2 ), vec3( 100.0 ) );\n  float displacement = - 0.5 * fNoise + b;\n  vec3 newPosition = position + normal * displacement;\n  gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );\n}"
+		},
+		"cameraPos": {
+			"x": 1.479123,
+			"y": -1.885716,
+			"z": -0.370143
+		},
+		"cameraRot": {
+			"x": 1.76462,
+			"y": 0.655988,
+			"z": -1.882144
+		},
+		"cameraController": {
+			"target": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			}
+		}
+	},
+	"data": {
+		"vertText": "varying vec2 fUV;\nvoid main() {\n    fUV = uv;\n    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n}\n",
+		"fragText": "varying vec2 fUV;\n#define VIG_REDUCTION_POWER 5.5\n#define VIG_BOOST 4.1\n\nfloat random(vec3 scale,float seed){return fract(sin(dot(gl_FragCoord.xyz+seed,scale))*43758.5453+seed);}\n\nvoid main() {\n\n\tvec3 color = vec3( 34. / 255. );\n\tvec2 center = iResolution * 0.5;\n\tfloat vignette = distance( center, gl_FragCoord.xy ) / iResolution.x;\n\tvignette = VIG_BOOST - vignette * VIG_REDUCTION_POWER;\n\n\tfloat n = 0.008 * ( .5 - random( vec3( 1. ), length( gl_FragCoord ) ) );\n\n\tgl_FragColor = vec4( color * vec3( vignette ) + vec3( n ), 1. );\n\n}\n",
+		"editorSource": 2
+	}
+}

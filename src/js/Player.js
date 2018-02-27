@@ -181,7 +181,7 @@ export class Player {
 			geometry = new THREE.CylinderGeometry(1,1,3,50);
 		}
 		else if (type == 5){
-			geometry = new THREE.IcosahedronGeometry();
+			geometry = new THREE.IcosahedronGeometry( 1, 1 );
 		}
 		else if(type == 6){
 			geometry = new THREE.TorusGeometry(1,0.4,16,100);
