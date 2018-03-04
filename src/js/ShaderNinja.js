@@ -260,7 +260,6 @@ export default class ShaderNinja {
     }
 
     resize() {
-        //w,h could be ??%, so get the dom client width and height here.
         this.threeCanvas.resize(this.viewportContainer.clientWidth, this.viewportContainer.clientHeight);
     }
 

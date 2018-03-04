@@ -14,9 +14,6 @@ UIMenubar.Status = function ( editor ) {
 	} );
 	//container.add( autosave );
 
-
-
-
 	var version = new UI.Text( 'BETA 0.0.1');
 	version.setClass( 'title' );
 	//version.setOpacity( 0.5 );

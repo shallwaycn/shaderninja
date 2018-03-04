@@ -62,9 +62,9 @@
             editor.storage.get(function (state) {
                 if (isLoadingFromHash) return;
                 if (state !== undefined) {
-                    //editor.fromJSON(state, onLoaded);
+                    editor.fromJSON(state, onLoaded);
                     //editor.load('./data/download.json', onLoaded);
-                    editor.new(onLoaded);
+                    //editor.new(onLoaded);
                 }
                 else{
                     editor.new(onLoaded);
@@ -77,7 +77,7 @@
                 var data = editor.toJSON();
                 editor.storage.set(data);
                 console.log("auto saved.")
-            }, 3000000);
+            }, 60 * 1000);
 
         });
 
