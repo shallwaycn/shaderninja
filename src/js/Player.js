@@ -468,6 +468,7 @@ export class Player {
 		scope.currentObj().material.uniforms.iCameraNear.value = scope.threeCanvas.camera.near;
 		scope.currentObj().material.uniforms.iCameraFar.value = scope.threeCanvas.camera.far;
 		scope.currentObj().material.uniforms.iDepthTexture.value = scope.threeCanvas.depthTarget.depthTexture;
+		scope.currentObj().matrixWorld.getInverse(scope.currentObj().material.uniforms.iWorld2ObjectMatrix.value);
 
 		for (var i = 0; i < scope.threeCanvas.data.textures.length; i++){
 			var property = 'iTexture' + i;

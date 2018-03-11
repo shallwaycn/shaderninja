@@ -154,6 +154,8 @@ export default class ThreeCanvas {
             params += 'uniform vec3 iLightDirection;\r\n';
         }
 
+        params += 'uniform mat4 iWorld2ObjectMatrix;\r\n';
+
         var end = '//header-end\r\n';
 
         var ret = header + params + end;
@@ -205,6 +207,9 @@ export default class ThreeCanvas {
                 },
                 iLightDirection:{
                     value: new THREE.Vector3(0,0,0)
+                },
+                iWorld2ObjectMatrix:{
+                    value: new THREE.Matrix4()
                 }
             };
         }
