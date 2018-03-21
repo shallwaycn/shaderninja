@@ -1,0 +1,213 @@
+{
+	"threeCanvas": {
+		"data": {
+			"textures": [
+				null,
+				null],
+			"images": {},
+			"editMode": 0,
+			"blending": 2,
+			"side": 0,
+			"transparent": true,
+			"objScale": {
+				"x": 1,
+				"y": 1,
+				"z": 1
+			},
+			"objPos": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"objRot": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"objectType": 3,
+			"flatShading": false,
+			"wireframe": false,
+			"depthWrite": true,
+			"depthTest": true,
+			"passDatas": [],
+			"showScene": false,
+			"useLight": false,
+			"animateScale": false
+		},
+		"player": {
+			"metadata": {},
+			"scene": {
+				"metadata": {
+					"version": 4.5,
+					"type": "Object",
+					"generator": "Object3D.toJSON"
+				},
+				"geometries": [
+					{
+						"uuid": "E47C0298-C766-4B04-A0EB-439B7788D7EE",
+						"type": "PlaneBufferGeometry",
+						"width": 3,
+						"height": 3,
+						"widthSegments": 40,
+						"heightSegments": 40
+					}],
+				"materials": [
+					{
+						"uuid": "D892923F-CD3E-49AD-A0E8-6DC308797E89",
+						"type": "ShaderMaterial",
+						"blending": 2,
+						"transparent": true,
+						"depthFunc": 3,
+						"depthTest": true,
+						"depthWrite": true,
+						"uniforms": {
+							"iTime": {
+								"value": 5012.035425
+							},
+							"iResolution": {
+								"value": {
+									"x": 960,
+									"y": 499
+								}
+							},
+							"iSceneTexture": {
+								"value": {
+									"metadata": {
+										"version": 4.5,
+										"type": "Texture",
+										"generator": "Texture.toJSON"
+									},
+									"uuid": "599F6245-04F5-46BF-86FB-0761158DD21A",
+									"name": "",
+									"mapping": 300,
+									"repeat": [1,1],
+									"offset": [0,0],
+									"center": [0,0],
+									"rotation": 0,
+									"wrap": [1001,1001],
+									"minFilter": 1003,
+									"magFilter": 1003,
+									"anisotropy": 1,
+									"flipY": true
+								}
+							},
+							"iDepthTexture": {
+								"value": null
+							},
+							"iCameraNear": {
+								"value": 0.1
+							},
+							"iCameraFar": {
+								"value": 1000
+							},
+							"iLightDirection": {
+								"value": {
+									"x": 0,
+									"y": 0,
+									"z": 0
+								}
+							},
+							"iWorld2ObjectMatrix": {
+								"value": {
+									"elements": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]
+								}
+							},
+							"iTexture0": {
+								"value": null
+							},
+							"iTexture1": {
+								"value": null
+							},
+							"iTexture2": {
+								"value": {
+									"metadata": {
+										"version": 4.5,
+										"type": "Texture",
+										"generator": "Texture.toJSON"
+									},
+									"uuid": "F7FE1BC3-1C7D-440F-8B9B-B420363D3F72",
+									"name": "",
+									"mapping": 300,
+									"repeat": [1,1],
+									"offset": [0,0],
+									"center": [0,0],
+									"rotation": 0,
+									"wrap": [1000,1000],
+									"minFilter": 1008,
+									"magFilter": 1006,
+									"anisotropy": 1,
+									"flipY": true,
+									"image": "08F94564-7B2E-49FE-97B9-23ADEBC93BA0"
+								}
+							},
+							"iPass0": {
+								"value": {
+									"metadata": {
+										"version": 4.5,
+										"type": "Texture",
+										"generator": "Texture.toJSON"
+									},
+									"uuid": "A170D201-D0D0-4450-BEDF-35F1E0A7C090",
+									"name": "",
+									"mapping": 300,
+									"repeat": [1,1],
+									"offset": [0,0],
+									"center": [0,0],
+									"rotation": 0,
+									"wrap": [1001,1001],
+									"minFilter": 1006,
+									"magFilter": 1006,
+									"anisotropy": 1,
+									"flipY": true
+								}
+							},
+							"iPass1": {
+								"value": null
+							}
+						},
+						"vertexShader": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform mat4 iWorld2ObjectMatrix;\r\n//header-end\r\nvarying vec3 fNormal;\nvarying vec3 fPosition;\nvarying vec2 fUV;\n\nvoid main()\n{\n    fNormal = normal;\n    vec4 wpos = modelMatrix * vec4(position, 1.0);\n    fPosition = wpos.xyz;\n    fUV = uv;\n    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n}\n",
+						"fragmentShader": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform mat4 iWorld2ObjectMatrix;\r\n//header-end\r\nvarying vec3 fPosition;\nvarying vec3 fNormal;\nvarying vec2 fUV;\n\n//https://www.shadertoy.com/view/XsB3zW\nvoid main()\n{\n\tvec2 uv = fUV;\n\t\n\t//get the colour\n\tfloat xCol = (uv.x - (iTime / 2.0)) * 3.0;\n\txCol = mod(xCol, 3.0);\n\tvec3 horColour = vec3(0.25, 0.25, 0.25);\n\t\n\tif (xCol < 1.0) {\n\t\t\n\t\thorColour.r += 1.0 - xCol;\n\t\thorColour.g += xCol;\n\t}\n\telse if (xCol < 2.0) {\n\t\t\n\t\txCol -= 1.0;\n\t\thorColour.g += 1.0 - xCol;\n\t\thorColour.b += xCol;\n\t}\n\telse {\n\t\t\n\t\txCol -= 2.0;\n\t\thorColour.b += 1.0 - xCol;\n\t\thorColour.r += xCol;\n\t}\n\t\n\t//background lines\n\tfloat backValue = 1.0;\n\tfloat aspect = iResolution.x / iResolution.y;\n\tif (mod(uv.y * 100.0, 1.0) > 0.75 || mod(uv.x * 100.0 * aspect, 1.0) > 0.75) {\n\t\t\n\t\tbackValue = 1.15;\t\n\t}\n\t\n\tvec3 backLines  = vec3(backValue);\n\t\n\t//main beam\n\tuv = (2.0 * uv) - 1.5;\n\tfloat beamWidth = abs(1.0 / (30.0 * uv.y));\n\tvec3 horBeam = vec3(beamWidth);\n    \n    vec4 top = vec4(((backLines * horBeam) * horColour), 1.0);\n\t\n    vec2 uv2 = (2.0 * uv) + 1.5;\n\tfloat beamWidth2 = abs(1.0 / (30.0 * uv2.y));\n\tvec3 horBeam2 = vec3(beamWidth2);\n    \n    vec4 bottom = vec4(((backLines * horBeam2) * horColour), 1.0);\n\tgl_FragColor = top + bottom;\n}\n"
+					}],
+				"object": {
+					"uuid": "F612A980-D080-4B65-8159-D56A9E007094",
+					"type": "Scene",
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+					"children": [
+						{
+							"uuid": "8856FD53-6C70-4BB4-92E7-B011132198E9",
+							"type": "Mesh",
+							"name": "MeshObj",
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+							"geometry": "E47C0298-C766-4B04-A0EB-439B7788D7EE",
+							"material": "D892923F-CD3E-49AD-A0E8-6DC308797E89"
+						}]
+				}
+			},
+			"envScene": null,
+			"frag": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform mat4 iWorld2ObjectMatrix;\r\n//header-end\r\nvarying vec3 fPosition;\nvarying vec3 fNormal;\nvarying vec2 fUV;\n\n//https://www.shadertoy.com/view/XsB3zW\nvoid main()\n{\n\tvec2 uv = fUV;\n\t\n\t//get the colour\n\tfloat xCol = (uv.x - (iTime / 2.0)) * 3.0;\n\txCol = mod(xCol, 3.0);\n\tvec3 horColour = vec3(0.25, 0.25, 0.25);\n\t\n\tif (xCol < 1.0) {\n\t\t\n\t\thorColour.r += 1.0 - xCol;\n\t\thorColour.g += xCol;\n\t}\n\telse if (xCol < 2.0) {\n\t\t\n\t\txCol -= 1.0;\n\t\thorColour.g += 1.0 - xCol;\n\t\thorColour.b += xCol;\n\t}\n\telse {\n\t\t\n\t\txCol -= 2.0;\n\t\thorColour.b += 1.0 - xCol;\n\t\thorColour.r += xCol;\n\t}\n\t\n\t//background lines\n\tfloat backValue = 1.0;\n\tfloat aspect = iResolution.x / iResolution.y;\n\tif (mod(uv.y * 100.0, 1.0) > 0.75 || mod(uv.x * 100.0 * aspect, 1.0) > 0.75) {\n\t\t\n\t\tbackValue = 1.15;\t\n\t}\n\t\n\tvec3 backLines  = vec3(backValue);\n\t\n\t//main beam\n\tuv = (2.0 * uv) - 1.5;\n\tfloat beamWidth = abs(1.0 / (30.0 * uv.y));\n\tvec3 horBeam = vec3(beamWidth);\n    \n    vec4 top = vec4(((backLines * horBeam) * horColour), 1.0);\n\t\n    vec2 uv2 = (2.0 * uv) + 1.5;\n\tfloat beamWidth2 = abs(1.0 / (30.0 * uv2.y));\n\tvec3 horBeam2 = vec3(beamWidth2);\n    \n    vec4 bottom = vec4(((backLines * horBeam2) * horColour), 1.0);\n\tgl_FragColor = top + bottom;\n}\n",
+			"vert": "//header-begin\r\nuniform float iTime;\r\nuniform vec2 iResolution;\r\nuniform sampler2D iDepthTexture;\r\nuniform sampler2D iSceneTexture;\r\nuniform float iCameraNear;\r\nuniform float iCameraFar;\r\nuniform sampler2D iTexture0;\r\nuniform sampler2D iTexture1;\r\nuniform mat4 iWorld2ObjectMatrix;\r\n//header-end\r\nvarying vec3 fNormal;\nvarying vec3 fPosition;\nvarying vec2 fUV;\n\nvoid main()\n{\n    fNormal = normal;\n    vec4 wpos = modelMatrix * vec4(position, 1.0);\n    fPosition = wpos.xyz;\n    fUV = uv;\n    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n}\n"
+		},
+		"cameraPos": {
+			"x": -0.003821,
+			"y": 0.026778,
+			"z": 1.701085
+		},
+		"cameraRot": {
+			"x": -0.01574,
+			"y": -0.002246,
+			"z": -0.000035
+		},
+		"cameraController": {
+			"target": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			}
+		}
+	},
+	"data": {
+		"vertText": "varying vec3 fNormal;\nvarying vec3 fPosition;\nvarying vec2 fUV;\n\nvoid main()\n{\n    fNormal = normal;\n    vec4 wpos = modelMatrix * vec4(position, 1.0);\n    fPosition = wpos.xyz;\n    fUV = uv;\n    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n}\n",
+		"fragText": "varying vec3 fPosition;\nvarying vec3 fNormal;\nvarying vec2 fUV;\n\n//https://www.shadertoy.com/view/XsB3zW\nvoid main()\n{\n\tvec2 uv = fUV;\n\t\n\t//get the colour\n\tfloat xCol = (uv.x - (iTime / 2.0)) * 3.0;\n\txCol = mod(xCol, 3.0);\n\tvec3 horColour = vec3(0.25, 0.25, 0.25);\n\t\n\tif (xCol < 1.0) {\n\t\t\n\t\thorColour.r += 1.0 - xCol;\n\t\thorColour.g += xCol;\n\t}\n\telse if (xCol < 2.0) {\n\t\t\n\t\txCol -= 1.0;\n\t\thorColour.g += 1.0 - xCol;\n\t\thorColour.b += xCol;\n\t}\n\telse {\n\t\t\n\t\txCol -= 2.0;\n\t\thorColour.b += 1.0 - xCol;\n\t\thorColour.r += xCol;\n\t}\n\t\n\t//background lines\n\tfloat backValue = 1.0;\n\tfloat aspect = iResolution.x / iResolution.y;\n\tif (mod(uv.y * 100.0, 1.0) > 0.75 || mod(uv.x * 100.0 * aspect, 1.0) > 0.75) {\n\t\t\n\t\tbackValue = 1.15;\t\n\t}\n\t\n\tvec3 backLines  = vec3(backValue);\n\t\n\t//main beam\n\tuv = (2.0 * uv) - 1.5;\n\tfloat beamWidth = abs(1.0 / (30.0 * uv.y));\n\tvec3 horBeam = vec3(beamWidth);\n    \n    vec4 top = vec4(((backLines * horBeam) * horColour), 1.0);\n\t\n    vec2 uv2 = (2.0 * uv) + 1.5;\n\tfloat beamWidth2 = abs(1.0 / (30.0 * uv2.y));\n\tvec3 horBeam2 = vec3(beamWidth2);\n    \n    vec4 bottom = vec4(((backLines * horBeam2) * horColour), 1.0);\n\tgl_FragColor = top + bottom;\n}\n",
+		"editorSource": 2
+	}
+}
